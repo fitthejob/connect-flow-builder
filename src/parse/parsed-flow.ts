@@ -65,4 +65,29 @@ export class ParsedFlow {
 
     return incoming;
   }
+
+  toConnectDefinition(): Record<string, unknown> {
+    const rawActions = this.rawDocument["Actions"];
+    const originalOrderIds = Array.isArray(rawActions)
+      ? rawActions.map((action) => (action as { Identifier: string }).Identifier)
+      : [];
+
+    const result: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(this.rawDocument)) {
+      if (key === "Actions") {
+        result[key] = originalOrderIds.map((id) => this.rawActionsById.get(id));
+      } else if (key === "StartAction") {
+        result[key] = this._startActionId;
+      } else {
+        result[key] = value;
+      }
+    }
+    return result;
+  }
+
+  toJsonString(pretty = true): string {
+    return pretty
+      ? JSON.stringify(this.toConnectDefinition(), null, 2)
+      : JSON.stringify(this.toConnectDefinition());
+  }
 }

@@ -157,3 +157,34 @@ test("predecessorsOf includes the document start pointer", () => {
   assert.deepEqual(flow.predecessorsOf("input"),
     [{ fromId: null, edge: { kind: "start" } }]);
 });
+
+test("unmodified flows re-emit byte-identically (modulo whitespace)", () => {
+  const original = structuredClone(BRANCHY_FLOW);
+  const flow = parseConnectFlowDefinition(original);
+  assert.equal(
+    JSON.stringify(flow.toConnectDefinition()),
+    JSON.stringify(original),
+  );
+});
+
+test("unrecognized top-level keys round-trip verbatim", () => {
+  const withExtras = { ...structuredClone(SIMPLE_FLOW),
+    Settings: { InputParameters: [], OutputParameters: [], Transitions: [] },
+    FutureTopLevelKey: { anything: [1, 2, 3] } };
+  const flow = parseConnectFlowDefinition(withExtras);
+  assert.equal(
+    JSON.stringify(flow.toConnectDefinition()),
+    JSON.stringify(withExtras),
+  );
+});
+
+test("every generated example flow round-trips", async () => {
+  const { readdirSync, readFileSync } = await import("node:fs");
+  for (const file of readdirSync("./generated-flows")) {
+    if (!file.endsWith(".json")) continue;
+    const original = JSON.parse(readFileSync(`./generated-flows/${file}`, "utf8"));
+    const flow = parseConnectFlowDefinition(original);
+    assert.equal(JSON.stringify(flow.toConnectDefinition()),
+      JSON.stringify(original), file);
+  }
+});
