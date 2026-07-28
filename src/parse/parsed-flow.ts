@@ -156,13 +156,15 @@ export class ParsedFlow {
     const emitId = (id: string): unknown => {
       if (this.added.includes(id) || this.dirty.has(id)) {
         const action = this._actionsById.get(id);
-        if (action && !isPassthroughAction(action)) {
+        if (action) {
           this.checkIntegrity(action);
-          validateSingleAction(action);
-          if (this.added.includes(id)) {
-            addedPositions.set(id, this.computeAddedPosition(action));
+          if (!isPassthroughAction(action)) {
+            validateSingleAction(action);
+            if (this.added.includes(id)) {
+              addedPositions.set(id, this.computeAddedPosition(action));
+            }
+            return emitConnectAction(action);
           }
-          return emitConnectAction(action);
         }
       }
       return this.rawActionsById.get(id);
@@ -192,7 +194,15 @@ export class ParsedFlow {
   }
 
   private checkIntegrity(action: ParsedAction): void {
-    for (const { target } of edgesOf(action)) {
+    // Passthrough actions carry their own frozen `raw` clone captured at parse
+    // time; live edits from rewireEdge land in rawActionsById instead. Check
+    // against the current raw source of truth so a dirty passthrough action's
+    // post-mutation edges are the ones validated, not the stale snapshot.
+    const liveAction: ParsedAction = isPassthroughAction(action)
+      ? { ...action, raw: this.rawActionsById.get(action.id) ?? action.raw }
+      : action;
+
+    for (const { target } of edgesOf(liveAction)) {
       if (!this._actionsById.has(target)) {
         throw new Error(
           `Action "${action.id}" references unknown action "${target}"`,
