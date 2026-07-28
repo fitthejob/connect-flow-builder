@@ -105,7 +105,7 @@ test("required parameter rules remain stable for the currently supported actions
     "LambdaFunctionARN",
   ]);
   assert.deepEqual(getActionDefinition("Loop").requiredParameters, ["LoopCount"]);
-  assert.deepEqual(getActionDefinition("MessageParticipant").requiredParameters, ["Text"]);
+  assert.deepEqual(getActionDefinition("MessageParticipant").requiredParameters, []);
   assert.deepEqual(getActionDefinition("MessageParticipantIteratively").requiredParameters, [
     "Messages",
   ]);

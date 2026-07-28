@@ -79,8 +79,8 @@ const QUIRKY_FLOW = {
   Actions: [
     { Identifier: "u1", Type: "SomeFutureBlock",
       Parameters: { Anything: true }, Transitions: { NextAction: "m1" } },
-    { Identifier: "m1", Type: "MessageParticipant",
-      Parameters: {},                // missing required Text -> nonconforming
+    { Identifier: "m1", Type: "TransferToFlow",
+      Parameters: {},                // missing required ContactFlowId -> nonconforming
       Transitions: { NextAction: "gone" } },  // dangling
   ],
 };
@@ -100,7 +100,7 @@ test("nonconforming known actions parse with a diagnostic", () => {
   assert.equal(isPassthroughAction(flow.getAction("m1")), false);
   const d = flow.diagnostics.find((d) => d.code === "nonconforming");
   assert.equal(d.actionId, "m1");
-  assert.match(d.message, /Text/);
+  assert.match(d.message, /ContactFlowId/);
 });
 
 test("dangling transitions produce a diagnostic, not a throw", () => {
