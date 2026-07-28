@@ -2,7 +2,7 @@ import { defineActionDefinition } from "../../action-definition.js";
 
 export const messageParticipantDefinition = defineActionDefinition({
   type: "MessageParticipant",
-  requiredParameters: [],
+  requiredParameters: ["Text"],
   supportsNextAction: true,
   supportsConditions: false,
   supportsErrors: true,

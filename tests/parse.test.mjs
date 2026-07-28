@@ -72,3 +72,45 @@ test("deep-copies object input (caller isolation)", () => {
   input.Actions[0].Parameters.Text = "MUTATED";
   assert.equal(flow.getAction("a1").parameters.Text, "hi");
 });
+
+const QUIRKY_FLOW = {
+  Version: "2030-01-01",           // unknown version
+  StartAction: "u1",
+  Actions: [
+    { Identifier: "u1", Type: "SomeFutureBlock",
+      Parameters: { Anything: true }, Transitions: { NextAction: "m1" } },
+    { Identifier: "m1", Type: "MessageParticipant",
+      Parameters: {},                // missing required Text -> nonconforming
+      Transitions: { NextAction: "gone" } },  // dangling
+  ],
+};
+
+test("unknown action types become passthrough with a diagnostic", () => {
+  const flow = parseConnectFlowDefinition(QUIRKY_FLOW);
+  const u1 = flow.getAction("u1");
+  assert.equal(isPassthroughAction(u1), true);
+  assert.equal(u1.type, "SomeFutureBlock");
+  assert.deepEqual(u1.raw.Parameters, { Anything: true });
+  assert.ok(flow.diagnostics.some(
+    (d) => d.code === "unknown-action" && d.actionId === "u1"));
+});
+
+test("nonconforming known actions parse with a diagnostic", () => {
+  const flow = parseConnectFlowDefinition(QUIRKY_FLOW);
+  assert.equal(isPassthroughAction(flow.getAction("m1")), false);
+  const d = flow.diagnostics.find((d) => d.code === "nonconforming");
+  assert.equal(d.actionId, "m1");
+  assert.match(d.message, /Text/);
+});
+
+test("dangling transitions produce a diagnostic, not a throw", () => {
+  const flow = parseConnectFlowDefinition(QUIRKY_FLOW);
+  assert.ok(flow.diagnostics.some(
+    (d) => d.code === "dangling-transition" && d.actionId === "m1"));
+});
+
+test("unknown Version produces a document-level diagnostic", () => {
+  const flow = parseConnectFlowDefinition(QUIRKY_FLOW);
+  assert.ok(flow.diagnostics.some(
+    (d) => d.code === "unknown-version" && d.actionId === null));
+});
