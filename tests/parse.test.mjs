@@ -260,6 +260,12 @@ test("emit throws when a mutation introduces a dangling edge on a passthrough ac
   assert.throws(() => flow.toConnectDefinition(), /does-not-exist/);
 });
 
+test("getAction returns live raw for a rewired passthrough action", () => {
+  const flow = parseConnectFlowDefinition(structuredClone(BRANCHY_FLOW));
+  flow.rewireEdge("mystery", { kind: "next" }, "end");
+  assert.equal(flow.getAction("mystery").raw.Transitions.NextAction, "end");
+});
+
 test("emit throws when an added action fails strict validation", () => {
   const flow = parseConnectFlowDefinition(structuredClone(BRANCHY_FLOW));
   flow.addAction({ id: "BadTransfer", type: "TransferToFlow", parameters: {} });

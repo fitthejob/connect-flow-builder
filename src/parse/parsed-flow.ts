@@ -43,7 +43,7 @@ export class ParsedFlow {
   }
 
   get actions(): readonly ParsedAction[] {
-    return Array.from(this._actionsById.values());
+    return Array.from(this._actionsById.values()).map((action) => this.withLiveRaw(action));
   }
 
   get diagnostics(): readonly ParseDiagnostic[] {
@@ -51,7 +51,18 @@ export class ParsedFlow {
   }
 
   getAction(id: string): ParsedAction | undefined {
-    return this._actionsById.get(id);
+    const action = this._actionsById.get(id);
+    return action ? this.withLiveRaw(action) : undefined;
+  }
+
+  // Passthrough actions carry their own frozen `raw` clone captured at parse
+  // time; live edits from rewireEdge land in rawActionsById instead. Return
+  // the current raw source of truth so callers see post-mutation edges
+  // rather than the stale snapshot.
+  private withLiveRaw(action: ParsedAction): ParsedAction {
+    return isPassthroughAction(action)
+      ? { ...action, raw: this.rawActionsById.get(action.id) ?? action.raw }
+      : action;
   }
 
   findByType(type: string): readonly ParsedAction[] {
@@ -194,13 +205,7 @@ export class ParsedFlow {
   }
 
   private checkIntegrity(action: ParsedAction): void {
-    // Passthrough actions carry their own frozen `raw` clone captured at parse
-    // time; live edits from rewireEdge land in rawActionsById instead. Check
-    // against the current raw source of truth so a dirty passthrough action's
-    // post-mutation edges are the ones validated, not the stale snapshot.
-    const liveAction: ParsedAction = isPassthroughAction(action)
-      ? { ...action, raw: this.rawActionsById.get(action.id) ?? action.raw }
-      : action;
+    const liveAction = this.withLiveRaw(action);
 
     for (const { target } of edgesOf(liveAction)) {
       if (!this._actionsById.has(target)) {
