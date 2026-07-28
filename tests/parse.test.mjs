@@ -226,3 +226,41 @@ test("passthrough parameters are never modified by rewiring", () => {
   assert.deepEqual(mystery.Parameters, {});
   assert.equal(mystery.Type, "FutureBlock");
 });
+
+test("added actions emit through the builder emitter with metadata position", () => {
+  const original = structuredClone(BRANCHY_FLOW);
+  original.Metadata = { ActionMetadata: { queue: { position: { x: 500, y: 300 } } } };
+  const flow = parseConnectFlowDefinition(original);
+  flow.insertBefore("queue", lens());
+  const emitted = flow.toConnectDefinition();
+  assert.equal(emitted.Actions.at(-1).Identifier, "Injected"); // appended last
+  assert.deepEqual(emitted.Metadata.ActionMetadata.Injected.position,
+    { x: 240, y: 300 }); // 500 - COL_SPACING(260)
+});
+
+test("untouched actions stay verbatim when a sibling is modified", () => {
+  const original = structuredClone(BRANCHY_FLOW);
+  const flow = parseConnectFlowDefinition(original);
+  flow.insertBefore("queue", lens());
+  const emittedEnd = flow.toConnectDefinition().Actions
+    .find((a) => a.Identifier === "end");
+  assert.equal(JSON.stringify(emittedEnd),
+    JSON.stringify(original.Actions.find((a) => a.Identifier === "end")));
+});
+
+test("emit throws when a mutation introduced a dangling edge", () => {
+  const flow = parseConnectFlowDefinition(structuredClone(BRANCHY_FLOW));
+  flow.rewireEdge("input", { kind: "next" }, "does-not-exist");
+  assert.throws(() => flow.toConnectDefinition(), /does-not-exist/);
+});
+
+test("emit throws when an added action fails strict validation", () => {
+  const flow = parseConnectFlowDefinition(structuredClone(BRANCHY_FLOW));
+  flow.addAction({ id: "BadMsg", type: "MessageParticipant", parameters: {} });
+  assert.throws(() => flow.toConnectDefinition(), /Text/);
+});
+
+test("pre-existing dangling edges still emit (tolerance preserved)", () => {
+  const flow = parseConnectFlowDefinition(QUIRKY_FLOW);
+  flow.toConnectDefinition(); // must not throw
+});

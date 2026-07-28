@@ -1,6 +1,8 @@
 import { edgesOf, type EdgeRef, type IncomingEdge } from "./edges.js";
 import { isPassthroughAction, type ParsedAction, type ParseDiagnostic } from "./types.js";
 import { emitConnectAction } from "../core/emit-action.js";
+import { validateSingleAction } from "../core/validators/index.js";
+import { COL_SPACING, type Position } from "../core/layout.js";
 import type { FlowAction } from "../core/types.js";
 
 interface RawTransitionsShape {
@@ -149,11 +151,17 @@ export class ParsedFlow {
     const originalOrderIds = Array.isArray(rawActions)
       ? rawActions.map((action) => (action as { Identifier: string }).Identifier)
       : [];
+    const addedPositions = new Map<string, Position>();
 
     const emitId = (id: string): unknown => {
       if (this.added.includes(id) || this.dirty.has(id)) {
         const action = this._actionsById.get(id);
         if (action && !isPassthroughAction(action)) {
+          this.checkIntegrity(action);
+          validateSingleAction(action);
+          if (this.added.includes(id)) {
+            addedPositions.set(id, this.computeAddedPosition(action));
+          }
           return emitConnectAction(action);
         }
       }
@@ -171,11 +179,66 @@ export class ParsedFlow {
         ];
       } else if (key === "StartAction") {
         result[key] = this._startActionId;
+      } else if (key === "Metadata") {
+        result[key] = this.mergeMetadata(value, addedPositions);
       } else {
         result[key] = value;
       }
     }
+    if (!("Metadata" in this.rawDocument) && addedPositions.size > 0) {
+      result["Metadata"] = this.mergeMetadata(undefined, addedPositions);
+    }
     return result;
+  }
+
+  private checkIntegrity(action: ParsedAction): void {
+    for (const { target } of edgesOf(action)) {
+      if (!this._actionsById.has(target)) {
+        throw new Error(
+          `Action "${action.id}" references unknown action "${target}"`,
+        );
+      }
+    }
+  }
+
+  private computeAddedPosition(action: ParsedAction): Position {
+    const targetId = !isPassthroughAction(action) ? action.transitions?.nextAction : undefined;
+    const actionMetadata = this.getRawActionMetadata();
+    const targetPosition = targetId ? actionMetadata?.[targetId]?.position : undefined;
+    if (targetPosition) {
+      return { x: targetPosition.x - COL_SPACING, y: targetPosition.y };
+    }
+    return { x: 0, y: 0 };
+  }
+
+  private getRawActionMetadata(): Record<string, { position?: Position }> | undefined {
+    const metadata = this.rawDocument["Metadata"] as
+      | { ActionMetadata?: Record<string, { position?: Position }> }
+      | undefined;
+    return metadata?.ActionMetadata;
+  }
+
+  private mergeMetadata(
+    rawMetadataValue: unknown,
+    addedPositions: Map<string, Position>,
+  ): unknown {
+    if (addedPositions.size === 0) {
+      return rawMetadataValue;
+    }
+
+    const rawMetadata = (rawMetadataValue as Record<string, unknown> | undefined) ?? {};
+    const rawActionMetadata =
+      (rawMetadata["ActionMetadata"] as Record<string, unknown> | undefined) ?? {};
+
+    const mergedActionMetadata: Record<string, unknown> = { ...rawActionMetadata };
+    for (const [id, position] of addedPositions) {
+      mergedActionMetadata[id] = { position };
+    }
+
+    return {
+      ...rawMetadata,
+      ActionMetadata: mergedActionMetadata,
+    };
   }
 
   toJsonString(pretty = true): string {

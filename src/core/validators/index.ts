@@ -50,6 +50,7 @@ import {
   validateCreateTaskAction,
   validateGetParticipantInputAction,
   validateLoadContactContentAction,
+  validateMessageParticipantAction,
 } from "./interact.js";
 import {
   validateDistributeByPercentageAction,
@@ -271,6 +272,9 @@ export function validateActionSpecificConstraints(action: FlowAction): void {
       break;
     case "Loop":
       validateLoopAction(action);
+      break;
+    case "MessageParticipant":
+      validateMessageParticipantAction(action);
       break;
     case "MessageParticipantIteratively":
       validateMessageParticipantIterativelyAction(action);
