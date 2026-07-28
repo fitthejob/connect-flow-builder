@@ -3,7 +3,4 @@ generated-flows/
 generated-flow-staging/
 coverage/
 *.log
-node_modules/
 dist/
-generated-flows/
-generated-flow-staging/

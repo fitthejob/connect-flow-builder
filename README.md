@@ -315,7 +315,7 @@ flow.insertBefore(transfer.id, recording);
 console.log(flow.toJsonString());
 ```
 
-`insertBefore` rewires every existing edge that pointed at `transfer.id` (the flow's start action, in this case) to point at the new action instead, and gives the new action a `NextAction` of `transfer.id`.
+`insertBefore` rewires every existing edge that pointed at `transfer.id` (whatever predecessors targeted it) to point at the new action instead, and gives the new action a `NextAction` of `transfer.id`.
 
 ## Staging Artifacts
 
