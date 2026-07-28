@@ -5,6 +5,7 @@ import {
   FlowParseError,
   parseConnectFlowDefinition,
 } from "../dist/parse/index.js";
+import { MessageParticipantActionBuilder } from "../dist/index.js";
 
 test("isPassthroughAction discriminates ParsedAction variants", () => {
   assert.equal(
@@ -187,4 +188,41 @@ test("every generated example flow round-trips", async () => {
     assert.equal(JSON.stringify(flow.toConnectDefinition()),
       JSON.stringify(original), file);
   }
+});
+
+function lens() {
+  return new MessageParticipantActionBuilder("Injected")
+    .text("placeholder-block").build();
+}
+
+test("addAction throws on id collision", () => {
+  const flow = parseConnectFlowDefinition(structuredClone(BRANCHY_FLOW));
+  assert.throws(() => flow.addAction({ id: "queue",
+    type: "MessageParticipant", parameters: { Text: "x" } }), /already exists/);
+});
+
+test("insertBefore rewires every predecessor including passthrough and self-edges", () => {
+  const flow = parseConnectFlowDefinition(structuredClone(BRANCHY_FLOW));
+  flow.insertBefore("queue", lens());
+  const emitted = flow.toConnectDefinition();
+  const byId = Object.fromEntries(emitted.Actions.map((a) => [a.Identifier, a]));
+  assert.equal(byId.input.Transitions.NextAction, "Injected");
+  assert.equal(byId.input.Transitions.Conditions[0].NextAction, "Injected");
+  assert.equal(byId.mystery.Transitions.NextAction, "Injected"); // passthrough rewired
+  assert.equal(byId.Injected.Transitions.NextAction, "queue");
+});
+
+test("insertBefore at the start action retargets StartAction", () => {
+  const flow = parseConnectFlowDefinition(structuredClone(BRANCHY_FLOW));
+  flow.insertBefore("input", lens());
+  assert.equal(flow.toConnectDefinition().StartAction, "Injected");
+});
+
+test("passthrough parameters are never modified by rewiring", () => {
+  const flow = parseConnectFlowDefinition(structuredClone(BRANCHY_FLOW));
+  flow.insertBefore("queue", lens());
+  const mystery = flow.toConnectDefinition().Actions
+    .find((a) => a.Identifier === "mystery");
+  assert.deepEqual(mystery.Parameters, {});
+  assert.equal(mystery.Type, "FutureBlock");
 });
