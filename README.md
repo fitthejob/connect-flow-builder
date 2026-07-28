@@ -277,6 +277,46 @@ You can also pass a custom output directory:
 node ./dist/generate.js ./my-output-dir
 ```
 
+## Parsing Live Flows
+
+In addition to authoring flows from scratch, the package can parse an exported Amazon Connect flow definition and let you edit it programmatically.
+
+```ts
+import { parseConnectFlowDefinition } from "@fitthejob/connect-flow-builder/parse";
+```
+
+`parseConnectFlowDefinition` accepts either a parsed object or a raw JSON string. It is tolerant of designer-authored quirks — UUID identifiers, `Metadata.ActionMetadata` designer keys, and block types the package does not yet implement. Rather than throwing on anything unexpected, it returns a `ParsedFlow` with a `diagnostics` array describing what it found. Diagnostics use one of four codes:
+
+- `unknown-action` — an action type not recognized by the registry (parsed as a passthrough action)
+- `nonconforming` — a recognized action whose parameters fail validation
+- `dangling-transition` — a transition that references an action id not present in the flow
+- `unknown-version` — a `Version` value other than `"2019-10-30"`
+
+Parsing only throws a `FlowParseError` for structurally invalid input (bad JSON, or a missing `Version`, `StartAction`, or `Actions`).
+
+An unmodified flow re-emitted with `toConnectDefinition()` or `toJsonString()` is content- and key-order-identical to the source document — parsing never rewrites fields it doesn't need to touch, so a parse-then-emit round trip on an untouched flow is a no-op diff.
+
+```ts
+import { parseConnectFlowDefinition } from "@fitthejob/connect-flow-builder/parse";
+import { UpdateContactRecordingAndAnalyticsBehaviorActionBuilder } from "@fitthejob/connect-flow-builder";
+
+const flow = parseConnectFlowDefinition(exportedFlowJson);
+
+const [transfer] = flow.findByType("TransferContactToQueue");
+
+const recording = new UpdateContactRecordingAndAnalyticsBehaviorActionBuilder("recording-1")
+  .voiceRecording(["Agent", "Customer"])
+  .onError(transfer.id, "NoMatchingError")
+  .onError(transfer.id, "ChannelMismatch")
+  .build();
+
+flow.insertBefore(transfer.id, recording);
+
+console.log(flow.toJsonString());
+```
+
+`insertBefore` rewires every existing edge that pointed at `transfer.id` (the flow's start action, in this case) to point at the new action instead, and gives the new action a `NextAction` of `transfer.id`.
+
 ## Staging Artifacts
 
 The package now also supports a generic staging layer for review-before-deploy workflows.

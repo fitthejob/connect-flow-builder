@@ -1,0 +1,29 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "5f1a2b3c-0001-4000-8000-000000000001",
+  "Metadata": {
+    "entryPointPosition": { "x": 40, "y": 40 },
+    "ActionMetadata": {
+      "5f1a2b3c-0001-4000-8000-000000000001": { "position": { "x": 164, "y": 118 }, "isFriendlyName": true },
+      "5f1a2b3c-0002-4000-8000-000000000002": { "position": { "x": 424, "y": 118 } },
+      "5f1a2b3c-0003-4000-8000-000000000003": { "position": { "x": 684, "y": 118 } }
+    },
+    "annotations": [],
+    "name": "DesignerBuiltFlow",
+    "status": "PUBLISHED"
+  },
+  "Actions": [
+    { "Identifier": "5f1a2b3c-0001-4000-8000-000000000001",
+      "Type": "MessageParticipant",
+      "Parameters": { "Text": "Welcome." },
+      "Transitions": { "NextAction": "5f1a2b3c-0002-4000-8000-000000000002",
+        "Errors": [], "Conditions": [] } },
+    { "Identifier": "5f1a2b3c-0002-4000-8000-000000000002",
+      "Type": "BrandNewDesignerBlock2030",
+      "Parameters": { "SomeConfig": { "Nested": ["a", "b"] } },
+      "Transitions": { "NextAction": "5f1a2b3c-0003-4000-8000-000000000003" } },
+    { "Identifier": "5f1a2b3c-0003-4000-8000-000000000003",
+      "Type": "DisconnectParticipant",
+      "Parameters": {} }
+  ]
+}
