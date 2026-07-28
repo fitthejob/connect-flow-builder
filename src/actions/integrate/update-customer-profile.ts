@@ -14,9 +14,11 @@ export class UpdateCustomerProfileActionBuilder extends BaseActionBuilder<Update
 
   responseField(key: string): this {
     const data =
-      this.getParameter<Record<string, boolean> | undefined>("ProfileResponseData")
-      ?? {};
-    data[key] = true;
+      this.getParameter<string[] | undefined>("ProfileResponseData")
+      ?? [];
+    if (!data.includes(key)) {
+      data.push(key);
+    }
     return this.setParameter("ProfileResponseData", data);
   }
 }

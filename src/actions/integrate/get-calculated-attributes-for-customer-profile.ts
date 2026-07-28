@@ -15,9 +15,11 @@ export class GetCalculatedAttributesForCustomerProfileActionBuilder extends Base
 
   responseField(name: string): this {
     const responseData =
-      this.getParameter<Record<string, boolean> | undefined>("ProfileResponseData")
-      ?? {};
-    responseData[name] = true;
+      this.getParameter<string[] | undefined>("ProfileResponseData")
+      ?? [];
+    if (!responseData.includes(name)) {
+      responseData.push(name);
+    }
     return this.setParameter("ProfileResponseData", responseData);
   }
 }

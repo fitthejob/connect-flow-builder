@@ -837,9 +837,7 @@ test("CreateCustomerProfileActionBuilder emits the expected customer profile cre
       FirstName: "Ada",
       LastName: "Lovelace",
     },
-    ProfileResponseData: {
-      ProfileId: true,
-    },
+    ProfileResponseData: ["ProfileId"],
   });
 });
 
@@ -882,9 +880,7 @@ test("GetCustomerProfileObjectActionBuilder emits the expected profile object lo
       ObjectType: "Customer",
       UseLatest: true,
     },
-    ProfileResponseData: {
-      ObjectId: true,
-    },
+    ProfileResponseData: ["ObjectId"],
   });
 });
 
@@ -903,9 +899,7 @@ test("UpdateCustomerProfileActionBuilder emits the expected profile update block
       ProfileId: "$.External.ProfileId",
       PreferredChannel: "voice",
     },
-    ProfileResponseData: {
-      ProfileId: true,
-    },
+    ProfileResponseData: ["ProfileId"],
   });
 });
 
@@ -2648,10 +2642,10 @@ test("GetCalculatedAttributesForCustomerProfileActionBuilder emits the expected 
     ProfileRequestData: {
       ProfileId: "$.Customer.ProfileId",
     },
-    ProfileResponseData: {
-      "CalculatedAttributes._average_hold_time": true,
-      "CalculatedAttributes._frequent_caller": true,
-    },
+    ProfileResponseData: [
+      "CalculatedAttributes._average_hold_time",
+      "CalculatedAttributes._frequent_caller",
+    ],
   });
 });
 
@@ -2817,4 +2811,21 @@ test("built actions are detached from later builder mutations", () => {
 
   assert.equal(action.parameters.Text, "first");
   assert.equal(action.transitions.errors, undefined);
+});
+
+test("customer-profile builders emit ProfileResponseData as an array of field names", () => {
+  const cases = [
+    [new CreateCustomerProfileActionBuilder("CreateProfile"), ["FirstName", "LastName"]],
+    [new UpdateCustomerProfileActionBuilder("UpdateProfile"), ["Attributes.Tier"]],
+    [new GetCustomerProfileObjectActionBuilder("GetObject"), ["ObjectId"]],
+    [new GetCalculatedAttributesForCustomerProfileActionBuilder("GetCalc"), ["Score"]],
+  ];
+  for (const [builder, fields] of cases) {
+    for (const field of fields) {
+      builder.responseField(field);
+    }
+    builder.responseField(fields[0]); // duplicate must not double-add
+    const action = builder.build();
+    assert.deepEqual(action.parameters.ProfileResponseData, fields);
+  }
 });
