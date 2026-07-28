@@ -1,8 +1,20 @@
 {
-  "name": "connect-flow-builder",
+  "name": "@fitthejob/connect-flow-builder",
   "version": "0.1.0",
-  "private": true,
   "description": "TypeScript Amazon Connect flow-authoring library with typed action builders, validation, and JSON emission.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fitthejob/connect-flow-builder.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "docs"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -13,6 +25,7 @@
     }
   },
   "scripts": {
+    "prepublishOnly": "npm run check && npm run test",
     "build": "node ./scripts/clean-dist.mjs && tsc -p tsconfig.json && node ./scripts/render-action-catalog.mjs",
     "check": "tsc -p tsconfig.json --noEmit",
     "generate": "npm run build && node ./dist/generate.js",
