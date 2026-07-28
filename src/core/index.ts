@@ -84,4 +84,4 @@ export type {
   FlowSegment,
   FlowTransitions,
 } from "./types.js";
-export { validateFlowDefinition } from "./validators/index.js";
+export { validateFlowDefinition, validateSingleAction } from "./validators/index.js";

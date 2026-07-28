@@ -104,6 +104,14 @@ export function validateFlowDefinition(flow: FlowDefinition): void {
   validateActionParameters(flow.actions);
 }
 
+export function validateSingleAction(action: FlowAction): void {
+  const definition = getActionDefinition(action.type);
+  for (const parameter of definition.requiredParameters) {
+    requireParameter(action, parameter);
+  }
+  validateActionSpecificConstraints(action);
+}
+
 function validateDuplicateIds(actions: FlowAction[]): void {
   const seen = new Set<string>();
   for (const action of actions) {
@@ -151,7 +159,7 @@ function validateActionParameters(actions: FlowAction[]): void {
   }
 }
 
-function requireParameter(action: FlowAction, key: string): void {
+export function requireParameter(action: FlowAction, key: string): void {
   if (!(key in action.parameters)) {
     throw new Error(`Action "${action.id}" of type "${action.type}" requires parameter "${key}".`);
   }
@@ -172,7 +180,7 @@ function validateConditionExpression(
   }
 }
 
-function validateActionSpecificConstraints(action: FlowAction): void {
+export function validateActionSpecificConstraints(action: FlowAction): void {
   switch (action.type) {
     case "AuthenticateParticipant":
       validateAuthenticateParticipantAction(action);

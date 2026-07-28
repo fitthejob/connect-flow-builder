@@ -19,6 +19,7 @@ export {
   textEndsWithCondition,
   textStartsWithCondition,
   validateFlowDefinition,
+  validateSingleAction,
   whenCondition,
   type FlowResourceReferences,
 } from "./core/index.js";
