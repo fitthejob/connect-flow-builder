@@ -1,0 +1,5 @@
+node_modules/
+generated-flows/
+generated-flow-staging/
+coverage/
+*.log

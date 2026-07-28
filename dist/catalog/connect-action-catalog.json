@@ -1,0 +1,2078 @@
+[
+  {
+    "awsAction": "AuthenticateParticipant",
+    "surfaceKind": "flow-language-action",
+    "category": "INTERACT",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Authenticate Customer"
+    ],
+    "docs": [
+      {
+        "kind": "admin-guide",
+        "path": "authenticate-customer.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/authenticate-customer.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "AuthenticateParticipant",
+      "builderClassName": "AuthenticateParticipantActionBuilder",
+      "definitionModule": "src/core/actions/interact/authenticate-participant.ts",
+      "builderModule": "src/actions/interact/authenticate-participant.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "AuthenticateParticipantActionBuilder"
+    },
+    "notes": "AWS surfaces this through the Flow Designer block 'Authenticate Customer'; the underlying action name is inferred from exported flow JSON because AWS does not currently publish a dedicated Developer Guide action page for it."
+  },
+  {
+    "awsAction": "CreatePersistentContactAssociation",
+    "surfaceKind": "flow-language-action",
+    "category": "INTERACT",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Create persistent contact association"
+    ],
+    "docs": [
+      {
+        "kind": "api-reference",
+        "path": "API_CreatePersistentContactAssociation.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/APIReference/API_CreatePersistentContactAssociation.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "create-persistent-contact-association-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-persistent-contact-association-block.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "chat-persistence.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/chat-persistence.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "CreatePersistentContactAssociation",
+      "builderClassName": "CreatePersistentContactAssociationActionBuilder",
+      "definitionModule": "src/core/actions/interact/create-persistent-contact-association.ts",
+      "builderModule": "src/actions/interact/create-persistent-contact-association.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "CreatePersistentContactAssociationActionBuilder"
+    },
+    "notes": "The Flow Designer export and AWS API reference both prove the underlying action name. SourceContactId is the portable contract surface; the Flow Designer namespace/key picker is only an authoring convenience for producing that expression."
+  },
+  {
+    "awsAction": "CreateTask",
+    "surfaceKind": "flow-language-action",
+    "category": "INTERACT",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Create task"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "createtask.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/createtask.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "create-task-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-task-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "CreateTask",
+      "builderClassName": "CreateTaskActionBuilder",
+      "definitionModule": "src/core/actions/interact/create-task.ts",
+      "builderModule": "src/actions/interact/create-task.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "CreateTaskActionBuilder"
+    }
+  },
+  {
+    "awsAction": "GetParticipantInput",
+    "surfaceKind": "flow-language-action",
+    "category": "INTERACT",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Get customer input"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "participant-actions-getparticipantinput.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/participant-actions-getparticipantinput.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "get-customer-input.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/get-customer-input.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "GetParticipantInput",
+      "builderClassName": "GetParticipantInputActionBuilder",
+      "definitionModule": "src/core/actions/interact/get-participant-input.ts",
+      "builderModule": "src/actions/interact/get-participant-input.ts",
+      "rootExported": true,
+      "notes": "The core action definition now supports multiple valid modes; the package currently exposes the Lex-backed builder directly and additional UI-aligned wrappers when their exported contracts are proven.",
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "GetParticipantInputActionBuilder"
+    }
+  },
+  {
+    "awsAction": "LoadContactContent",
+    "surfaceKind": "flow-language-action",
+    "category": "INTERACT",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Get stored content"
+    ],
+    "docs": [
+      {
+        "kind": "admin-guide",
+        "path": "get-stored-content.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/get-stored-content.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "LoadContactContent",
+      "builderClassName": "LoadContactContentActionBuilder",
+      "definitionModule": "src/core/actions/interact/load-contact-content.ts",
+      "builderModule": "src/actions/interact/load-contact-content.ts",
+      "rootExported": true,
+      "notes": "The live block and Admin Guide currently expose only the EmailMessage content type, so the package intentionally constrains the builder to that proven option.",
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "LoadContactContentActionBuilder"
+    },
+    "notes": "AWS documents this block through the Admin Guide and explicitly identifies the underlying flow-language action as LoadContactContent."
+  },
+  {
+    "awsAction": "MessageParticipant",
+    "surfaceKind": "flow-language-action",
+    "category": "INTERACT",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Play prompt",
+      "Send message"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "participant-actions-messageparticipant.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/participant-actions-messageparticipant.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "play.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/play.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "send-message.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/send-message.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "MessageParticipant",
+      "builderClassName": "MessageParticipantActionBuilder",
+      "definitionModule": "src/core/actions/interact/message-participant.ts",
+      "builderModule": "src/actions/interact/message-participant.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "MessageParticipantActionBuilder"
+    },
+    "notes": "The developer-guide action covers both audio prompt and text-message behavior depending on channel."
+  },
+  {
+    "awsAction": "Store customer input",
+    "underlyingAwsAction": "GetParticipantInput",
+    "surfaceKind": "flow-language-action",
+    "category": "INTERACT",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Store customer input"
+    ],
+    "docs": [
+      {
+        "kind": "admin-guide",
+        "path": "store-customer-input.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/store-customer-input.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageSurfaceKind": "ui-wrapper-builder",
+      "packageActionType": "GetParticipantInput",
+      "builderClassName": "StoreCustomerInputActionBuilder",
+      "definitionModule": "src/core/actions/interact/get-participant-input.ts",
+      "builderModule": "src/actions/interact/store-customer-input.ts",
+      "rootExported": true,
+      "notes": "The package currently implements the proven custom-digit mode only: StoreInput True, DTMFConfiguration, InputTimeLimitSeconds, and InputValidation.CustomValidation.MaximumLength. Phone-number, encryption, and prompt variants remain intentionally deferred until exported JSON proves their exact contracts.",
+      "packageExportName": "StoreCustomerInputActionBuilder"
+    },
+    "notes": "AWS documents Store customer input as a GetParticipantInput-based block that stores digits into the Stored customer input system attribute."
+  },
+  {
+    "awsAction": "Connect assistant",
+    "underlyingAwsAction": "CreateWisdomSession + UpdateContactData",
+    "surfaceKind": "designer-block",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Connect assistant"
+    ],
+    "docs": [
+      {
+        "kind": "admin-guide",
+        "path": "connect-assistant-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-assistant-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageSurfaceKind": "composite-helper",
+      "packageActionType": "CreateWisdomSession",
+      "builderClassName": "buildConnectAssistant",
+      "builderModule": "src/composites/connect-assistant.ts",
+      "rootExported": true,
+      "notes": "This UI block is implemented as a composite helper that emits CreateWisdomSession followed by UpdateContactData.WisdomSessionArn = $.Wisdom.SessionArn.",
+      "packageExportName": "buildConnectAssistant"
+    },
+    "notes": "The block expands into two underlying AWS actions rather than a single flow-language action, so the package exposes it as a composite helper instead of a standalone action builder."
+  },
+  {
+    "awsAction": "TagContact",
+    "surfaceKind": "flow-language-action",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Contact tags"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-tagcontact.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-tagcontact.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "contact-tags-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-tags-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "TagContact",
+      "builderClassName": "TagContactActionBuilder",
+      "definitionModule": "src/core/actions/set/tag-contact.ts",
+      "builderModule": "src/actions/set/tag-contact.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "TagContactActionBuilder"
+    }
+  },
+  {
+    "awsAction": "UnTagContact",
+    "surfaceKind": "flow-language-action",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Contact tags"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-untagcontact.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-untagcontact.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "contact-tags-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-tags-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UnTagContact",
+      "builderClassName": "UnTagContactActionBuilder",
+      "definitionModule": "src/core/actions/set/untag-contact.ts",
+      "builderModule": "src/actions/set/untag-contact.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UnTagContactActionBuilder"
+    }
+  },
+  {
+    "awsAction": "ResumeContact",
+    "surfaceKind": "flow-language-action",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Resume Contact"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-updatecontactresumecontact.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-updatecontactresumecontact.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "resume-contact.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/resume-contact.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "ResumeContact",
+      "builderClassName": "ResumeContactActionBuilder",
+      "definitionModule": "src/core/actions/set/resume-contact.ts",
+      "builderModule": "src/actions/set/resume-contact.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "ResumeContactActionBuilder"
+    }
+  },
+  {
+    "awsAction": "UpdateContactCallbackNumber",
+    "surfaceKind": "flow-language-action",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set callback number"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-updatecontactcallbacknumber.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-updatecontactcallbacknumber.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "set-callback-number.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-callback-number.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateContactCallbackNumber",
+      "builderClassName": "UpdateContactCallbackNumberActionBuilder",
+      "definitionModule": "src/core/actions/set/update-contact-callback-number.ts",
+      "builderModule": "src/actions/set/update-contact-callback-number.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateContactCallbackNumberActionBuilder"
+    }
+  },
+  {
+    "awsAction": "UpdateContactAttributes",
+    "surfaceKind": "flow-language-action",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set contact attributes"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-updatecontactattributes.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-updatecontactattributes.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "set-contact-attributes.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-contact-attributes.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateContactAttributes",
+      "builderClassName": "UpdateContactAttributesActionBuilder",
+      "definitionModule": "src/core/actions/set/update-contact-attributes.ts",
+      "builderModule": "src/actions/set/update-contact-attributes.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateContactAttributesActionBuilder"
+    }
+  },
+  {
+    "awsAction": "Set customer queue flow",
+    "underlyingAwsAction": "UpdateContactEventHooks",
+    "surfaceKind": "designer-block",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set customer queue flow"
+    ],
+    "docs": [
+      {
+        "kind": "admin-guide",
+        "path": "set-customer-queue-flow.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-customer-queue-flow.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageSurfaceKind": "ui-wrapper-builder",
+      "packageActionType": "UpdateContactEventHooks",
+      "builderClassName": "SetCustomerQueueFlowActionBuilder",
+      "definitionModule": "src/core/actions/set/update-contact-event-hooks.ts",
+      "builderModule": "src/actions/set/set-customer-queue-flow.ts",
+      "rootExported": true,
+      "notes": "This UI-aligned wrapper emits UpdateContactEventHooks with EventHooks constrained to CustomerQueue.",
+      "packageExportName": "SetCustomerQueueFlowActionBuilder"
+    },
+    "notes": "AWS currently documents this as a Flow Designer block in the Admin Guide rather than as a separate flow-language action page."
+  },
+  {
+    "awsAction": "Set disconnect flow",
+    "underlyingAwsAction": "UpdateContactEventHooks",
+    "surfaceKind": "designer-block",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set disconnect flow"
+    ],
+    "docs": [
+      {
+        "kind": "admin-guide",
+        "path": "set-disconnect-flow.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-disconnect-flow.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageSurfaceKind": "ui-wrapper-builder",
+      "packageActionType": "UpdateContactEventHooks",
+      "builderClassName": "SetDisconnectFlowActionBuilder",
+      "definitionModule": "src/core/actions/set/update-contact-event-hooks.ts",
+      "builderModule": "src/actions/set/set-disconnect-flow.ts",
+      "rootExported": true,
+      "notes": "This UI-aligned wrapper emits UpdateContactEventHooks with EventHooks constrained to CustomerRemaining.",
+      "packageExportName": "SetDisconnectFlowActionBuilder"
+    },
+    "notes": "The admin-guide block and exported JSON align with the UpdateContactEventHooks developer-guide contract, where CustomerRemaining is a valid static event-hook key."
+  },
+  {
+    "awsAction": "UpdateContactEventHooks",
+    "surfaceKind": "flow-language-action",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set event flow",
+      "Set customer queue flow",
+      "Set disconnect flow",
+      "Set whisper flow"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-updatecontacteventhooks.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-updatecontacteventhooks.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "set-event-flow.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-event-flow.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateContactEventHooks",
+      "builderClassName": "UpdateContactEventHooksActionBuilder",
+      "definitionModule": "src/core/actions/set/update-contact-event-hooks.ts",
+      "builderModule": "src/actions/set/update-contact-event-hooks.ts",
+      "rootExported": true,
+      "notes": "This low-level action underpins Set event flow and the implemented customer queue, disconnect, and whisper hook wrappers.",
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateContactEventHooksActionBuilder"
+    }
+  },
+  {
+    "awsAction": "UpdateRoutingCriteria",
+    "surfaceKind": "flow-language-action",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set routing criteria"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-updateroutingcriteria.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-updateroutingcriteria.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "set-routing-criteria.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-routing-criteria.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateRoutingCriteria",
+      "builderClassName": "UpdateRoutingCriteriaActionBuilder",
+      "definitionModule": "src/core/actions/set/update-routing-criteria.ts",
+      "builderModule": "src/actions/set/update-routing-criteria.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateRoutingCriteriaActionBuilder"
+    }
+  },
+  {
+    "awsAction": "Set Touchtone Buffer Behavior",
+    "underlyingAwsAction": "GetParticipantInput",
+    "surfaceKind": "designer-block",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set Touchtone Buffer Behavior"
+    ],
+    "docs": [
+      {
+        "kind": "admin-guide",
+        "path": "set-touchtone-buffer-behavior.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-touchtone-buffer-behavior.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageSurfaceKind": "ui-wrapper-builder",
+      "packageActionType": "GetParticipantInput",
+      "builderClassName": "SetTouchtoneBufferBehaviorActionBuilder",
+      "definitionModule": "src/core/actions/interact/get-participant-input.ts",
+      "builderModule": "src/actions/set/set-touchtone-buffer-behavior.ts",
+      "rootExported": true,
+      "notes": "The package implements the proven Enable and Stop and Clear forms, including the documented optional StoreInput and InputEncryption parameters for Stop and Clear.",
+      "packageExportName": "SetTouchtoneBufferBehaviorActionBuilder"
+    },
+    "notes": "AWS explicitly documents this block as a GetParticipantInput-based Flow Designer surface using the EnableDTMFBuffer parameter."
+  },
+  {
+    "awsAction": "UpdateContactTextToSpeechVoice",
+    "surfaceKind": "flow-language-action",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set voice"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-updatecontacttexttospeechvoice.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-updatecontacttexttospeechvoice.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "set-voice.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-voice.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateContactTextToSpeechVoice",
+      "builderClassName": "UpdateContactTextToSpeechVoiceActionBuilder",
+      "definitionModule": "src/core/actions/set/update-contact-text-to-speech-voice.ts",
+      "builderModule": "src/actions/set/update-contact-text-to-speech-voice.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateContactTextToSpeechVoiceActionBuilder"
+    }
+  },
+  {
+    "awsAction": "StartVoiceIdStream",
+    "surfaceKind": "flow-language-action",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set voice ID"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-startvoiceidstream.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-startvoiceidstream.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "set-voice-id.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-voice-id.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "StartVoiceIdStream",
+      "builderClassName": "StartVoiceIdStreamActionBuilder",
+      "definitionModule": "src/core/actions/set/start-voice-id-stream.ts",
+      "builderModule": "src/actions/set/start-voice-id-stream.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "StartVoiceIdStreamActionBuilder"
+    }
+  },
+  {
+    "awsAction": "Set whisper flow",
+    "underlyingAwsAction": "UpdateContactEventHooks",
+    "surfaceKind": "designer-block",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set whisper flow"
+    ],
+    "docs": [
+      {
+        "kind": "admin-guide",
+        "path": "set-whisper-flow.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-whisper-flow.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageSurfaceKind": "ui-wrapper-builder",
+      "packageActionType": "UpdateContactEventHooks",
+      "builderClassName": "SetWhisperFlowActionBuilder",
+      "definitionModule": "src/core/actions/set/update-contact-event-hooks.ts",
+      "builderModule": "src/actions/set/set-whisper-flow.ts",
+      "rootExported": true,
+      "notes": "This UI-aligned wrapper emits UpdateContactEventHooks with EventHooks constrained to CustomerWhisper.",
+      "packageExportName": "SetWhisperFlowActionBuilder"
+    },
+    "notes": "AWS currently documents this as a Flow Designer block in the Admin Guide rather than as a separate flow-language action page."
+  },
+  {
+    "awsAction": "UpdateContactTargetQueue",
+    "surfaceKind": "flow-language-action",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set working queue"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-updatecontacttargetqueue.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-updatecontacttargetqueue.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "set-working-queue.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-working-queue.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateContactTargetQueue",
+      "builderClassName": "UpdateContactTargetQueueActionBuilder",
+      "definitionModule": "src/core/actions/set/update-contact-target-queue.ts",
+      "builderModule": "src/actions/set/update-contact-target-queue.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateContactTargetQueueActionBuilder"
+    }
+  },
+  {
+    "awsAction": "UpdateContactRoutingBehavior",
+    "surfaceKind": "flow-language-action",
+    "category": "SET",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Change routing priority / age"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-updatecontactroutingbehavior.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-updatecontactroutingbehavior.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "change-routing-priority.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/change-routing-priority.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateContactRoutingBehavior",
+      "builderClassName": "UpdateContactRoutingBehaviorActionBuilder",
+      "definitionModule": "src/core/actions/set/update-contact-routing-behavior.ts",
+      "builderModule": "src/actions/set/update-contact-routing-behavior.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateContactRoutingBehaviorActionBuilder"
+    }
+  },
+  {
+    "awsAction": "CheckOutboundCallStatus",
+    "surfaceKind": "flow-language-action",
+    "category": "CHECK",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Check call progress"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-checkoutboundcallstatus.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-checkoutboundcallstatus.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "check-call-progress.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/check-call-progress.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "CheckOutboundCallStatus",
+      "builderClassName": "CheckOutboundCallStatusActionBuilder",
+      "definitionModule": "src/core/actions/check/check-outbound-call-status.ts",
+      "builderModule": "src/actions/check/check-outbound-call-status.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "CheckOutboundCallStatusActionBuilder"
+    }
+  },
+  {
+    "awsAction": "Compare",
+    "surfaceKind": "flow-language-action",
+    "category": "CHECK",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Check contact attributes"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-compare.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-compare.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "check-contact-attributes.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/check-contact-attributes.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "Compare",
+      "builderClassName": "CompareActionBuilder",
+      "definitionModule": "src/core/actions/check/compare.ts",
+      "builderModule": "src/actions/check/compare.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "CompareActionBuilder"
+    }
+  },
+  {
+    "awsAction": "CheckHoursOfOperation",
+    "surfaceKind": "flow-language-action",
+    "category": "CHECK",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Check hours of operation"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-checkhoursofoperation.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-checkhoursofoperation.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "check-hours-of-operation.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/check-hours-of-operation.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "CheckHoursOfOperation",
+      "builderClassName": "CheckHoursOfOperationActionBuilder",
+      "definitionModule": "src/core/actions/check/check-hours-of-operation.ts",
+      "builderModule": "src/actions/check/check-hours-of-operation.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "CheckHoursOfOperationActionBuilder"
+    }
+  },
+  {
+    "awsAction": "CheckMetricData",
+    "surfaceKind": "flow-language-action",
+    "category": "CHECK",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Check queue status",
+      "Check staffing"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-checkmetricdata.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-checkmetricdata.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "check-queue-status.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/check-queue-status.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "check-staffing.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/check-staffing.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "CheckMetricData",
+      "builderClassName": "CheckMetricDataActionBuilder",
+      "definitionModule": "src/core/actions/check/check-metric-data.ts",
+      "builderModule": "src/actions/check/check-metric-data.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "CheckMetricDataActionBuilder"
+    }
+  },
+  {
+    "awsAction": "CheckVoiceId",
+    "surfaceKind": "flow-language-action",
+    "category": "CHECK",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Check voice ID"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-checkvoiceid.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-checkvoiceid.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "check-voice-id.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/check-voice-id.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "CheckVoiceId",
+      "builderClassName": "CheckVoiceIdActionBuilder",
+      "definitionModule": "src/core/actions/check/check-voice-id.ts",
+      "builderModule": "src/actions/check/check-voice-id.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "CheckVoiceIdActionBuilder"
+    }
+  },
+  {
+    "awsAction": "GetMetricData",
+    "surfaceKind": "flow-language-action",
+    "category": "CHECK",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Get metrics"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-getmetricdata.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-getmetricdata.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "get-queue-metrics.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/get-queue-metrics.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "GetMetricData",
+      "builderClassName": "GetMetricDataActionBuilder",
+      "definitionModule": "src/core/actions/check/get-metric-data.ts",
+      "builderModule": "src/actions/check/get-metric-data.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "GetMetricDataActionBuilder"
+    }
+  },
+  {
+    "awsAction": "UpdateFlowLoggingBehavior",
+    "surfaceKind": "flow-language-action",
+    "category": "ANALYZE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set logging behavior"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-updateflowloggingbehavior.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-updateflowloggingbehavior.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "set-logging-behavior.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-logging-behavior.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateFlowLoggingBehavior",
+      "builderClassName": "UpdateFlowLoggingBehaviorActionBuilder",
+      "definitionModule": "src/core/actions/analyze/update-flow-logging-behavior.ts",
+      "builderModule": "src/actions/analyze/update-flow-logging-behavior.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateFlowLoggingBehaviorActionBuilder"
+    }
+  },
+  {
+    "awsAction": "UpdateContactRecordingBehavior",
+    "surfaceKind": "flow-language-action",
+    "category": "ANALYZE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set recording, analytics, and processing behavior"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-updatecontactrecordingbehavior.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-updatecontactrecordingbehavior.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "set-recording-behavior.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "set-recording-analytics-processing-behavior.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-analytics-processing-behavior.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateContactRecordingBehavior",
+      "builderClassName": "UpdateContactRecordingBehaviorActionBuilder",
+      "definitionModule": "src/core/actions/analyze/update-contact-recording-behavior.ts",
+      "builderModule": "src/actions/analyze/update-contact-recording-behavior.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateContactRecordingBehaviorActionBuilder"
+    }
+  },
+  {
+    "awsAction": "UpdateContactRecordingAndAnalyticsBehavior",
+    "surfaceKind": "flow-language-action",
+    "category": "ANALYZE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set recording, analytics, and processing behavior"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-updatecontactrecordingandanalyticsbehavior.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-updatecontactrecordingandanalyticsbehavior.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "set-recording-analytics-processing-behavior.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-analytics-processing-behavior.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateContactRecordingAndAnalyticsBehavior",
+      "builderClassName": "UpdateContactRecordingAndAnalyticsBehaviorActionBuilder",
+      "definitionModule": "src/core/actions/analyze/update-contact-recording-and-analytics-behavior.ts",
+      "builderModule": "src/actions/analyze/update-contact-recording-and-analytics-behavior.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateContactRecordingAndAnalyticsBehaviorActionBuilder"
+    }
+  },
+  {
+    "awsAction": "UpdateContactMediaProcessing",
+    "surfaceKind": "flow-language-action",
+    "category": "ANALYZE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Set recording, analytics, and processing behavior"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-updatecontactmediaprocessing.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-updatecontactmediaprocessing.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "set-recording-analytics-processing-behavior.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-analytics-processing-behavior.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateContactMediaProcessing",
+      "builderClassName": "UpdateContactMediaProcessingActionBuilder",
+      "definitionModule": "src/core/actions/analyze/update-contact-media-processing.ts",
+      "builderModule": "src/actions/analyze/update-contact-media-processing.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateContactMediaProcessingActionBuilder"
+    }
+  },
+  {
+    "awsAction": "UpdateContactMediaStreamingBehavior",
+    "surfaceKind": "flow-language-action",
+    "category": "ANALYZE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Start media streaming",
+      "Stop media streaming"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-updatecontactmediastreamingbehavior.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-updatecontactmediastreamingbehavior.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "start-media-streaming.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/start-media-streaming.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "stop-media-streaming.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/stop-media-streaming.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateContactMediaStreamingBehavior",
+      "builderClassName": "UpdateContactMediaStreamingBehaviorActionBuilder",
+      "definitionModule": "src/core/actions/analyze/update-contact-media-streaming-behavior.ts",
+      "builderModule": "src/actions/analyze/update-contact-media-streaming-behavior.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateContactMediaStreamingBehaviorActionBuilder"
+    }
+  },
+  {
+    "awsAction": "DistributeByPercentage",
+    "surfaceKind": "flow-language-action",
+    "category": "LOGIC",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Distribute by Percentage"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-distributebypercentage.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-distributebypercentage.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "distribute-by-percentage.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/distribute-by-percentage.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "DistributeByPercentage",
+      "builderClassName": "DistributeByPercentageActionBuilder",
+      "definitionModule": "src/core/actions/logic/distribute-by-percentage.ts",
+      "builderModule": "src/actions/logic/distribute-by-percentage.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "DistributeByPercentageActionBuilder"
+    }
+  },
+  {
+    "awsAction": "Loop",
+    "surfaceKind": "flow-language-action",
+    "category": "LOGIC",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Loop"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-loop.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-loop.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "loop.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/loop.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "Loop",
+      "builderClassName": "LoopActionBuilder",
+      "definitionModule": "src/core/actions/logic/loop.ts",
+      "builderModule": "src/actions/logic/loop.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "LoopActionBuilder"
+    }
+  },
+  {
+    "awsAction": "Wait",
+    "surfaceKind": "flow-language-action",
+    "category": "LOGIC",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Wait"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-wait.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-wait.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "wait.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/wait.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "Wait",
+      "builderClassName": "WaitActionBuilder",
+      "definitionModule": "src/core/actions/logic/wait.ts",
+      "builderModule": "src/actions/logic/wait.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "WaitActionBuilder"
+    }
+  },
+  {
+    "awsAction": "InvokeLambdaFunction",
+    "surfaceKind": "flow-language-action",
+    "category": "INTEGRATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "AWS Lambda function"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "interactions-invokelambdafunction.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/interactions-invokelambdafunction.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "invoke-lambda-function-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/invoke-lambda-function-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "InvokeLambdaFunction",
+      "builderClassName": "InvokeLambdaFunctionActionBuilder",
+      "definitionModule": "src/core/actions/integrate/invoke-lambda.ts",
+      "builderModule": "src/actions/integrate/invoke-lambda.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "InvokeLambdaFunctionActionBuilder"
+    }
+  },
+  {
+    "awsAction": "CreateCase",
+    "surfaceKind": "flow-language-action",
+    "category": "INTEGRATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Cases"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "createcase.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/createcase.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "cases-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/cases-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "CreateCase",
+      "builderClassName": "CreateCaseActionBuilder",
+      "definitionModule": "src/core/actions/integrate/create-case.ts",
+      "builderModule": "src/actions/integrate/create-case.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "CreateCaseActionBuilder"
+    }
+  },
+  {
+    "awsAction": "GetCase",
+    "surfaceKind": "flow-language-action",
+    "category": "INTEGRATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Cases"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "getcase.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/getcase.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "cases-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/cases-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "GetCase",
+      "builderClassName": "GetCaseActionBuilder",
+      "definitionModule": "src/core/actions/integrate/get-case.ts",
+      "builderModule": "src/actions/integrate/get-case.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "GetCaseActionBuilder"
+    }
+  },
+  {
+    "awsAction": "UpdateCase",
+    "surfaceKind": "flow-language-action",
+    "category": "INTEGRATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Cases"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "updatecase.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/updatecase.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "cases-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/cases-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateCase",
+      "builderClassName": "UpdateCaseActionBuilder",
+      "definitionModule": "src/core/actions/integrate/update-case.ts",
+      "builderModule": "src/actions/integrate/update-case.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateCaseActionBuilder"
+    }
+  },
+  {
+    "awsAction": "CreateCustomerProfile",
+    "surfaceKind": "flow-language-action",
+    "category": "INTEGRATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Customer profiles"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "interactions-createcustomerprofile.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/interactions-createcustomerprofile.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "customer-profiles-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "CreateCustomerProfile",
+      "builderClassName": "CreateCustomerProfileActionBuilder",
+      "definitionModule": "src/core/actions/integrate/create-customer-profile.ts",
+      "builderModule": "src/actions/integrate/create-customer-profile.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "CreateCustomerProfileActionBuilder"
+    }
+  },
+  {
+    "awsAction": "GetCustomerProfile",
+    "surfaceKind": "flow-language-action",
+    "category": "INTEGRATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Customer profiles"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "interactions-getcustomerprofile.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/interactions-getcustomerprofile.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "customer-profiles-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "GetCustomerProfile",
+      "builderClassName": "GetCustomerProfileActionBuilder",
+      "definitionModule": "src/core/actions/integrate/get-customer-profile.ts",
+      "builderModule": "src/actions/integrate/get-customer-profile.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "GetCustomerProfileActionBuilder"
+    }
+  },
+  {
+    "awsAction": "GetCustomerProfileObject",
+    "surfaceKind": "flow-language-action",
+    "category": "INTEGRATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Customer profiles"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "interactions-getcustomerprofileobject.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/interactions-getcustomerprofileobject.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "customer-profiles-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "GetCustomerProfileObject",
+      "builderClassName": "GetCustomerProfileObjectActionBuilder",
+      "definitionModule": "src/core/actions/integrate/get-customer-profile-object.ts",
+      "builderModule": "src/actions/integrate/get-customer-profile-object.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "GetCustomerProfileObjectActionBuilder"
+    }
+  },
+  {
+    "awsAction": "GetCalculatedAttributesForCustomerProfile",
+    "surfaceKind": "flow-language-action",
+    "category": "INTEGRATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Customer profiles"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "interactions-getcalculatedattributesforcustomerprofile.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/interactions-getcalculatedattributesforcustomerprofile.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "customer-profiles-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "GetCalculatedAttributesForCustomerProfile",
+      "builderClassName": "GetCalculatedAttributesForCustomerProfileActionBuilder",
+      "definitionModule": "src/core/actions/integrate/get-calculated-attributes-for-customer-profile.ts",
+      "builderModule": "src/actions/integrate/get-calculated-attributes-for-customer-profile.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "GetCalculatedAttributesForCustomerProfileActionBuilder"
+    }
+  },
+  {
+    "awsAction": "UpdateCustomerProfile",
+    "surfaceKind": "flow-language-action",
+    "category": "INTEGRATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Customer profiles"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "interactions-updatecustomerprofile.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/interactions-updatecustomerprofile.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "customer-profiles-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateCustomerProfile",
+      "builderClassName": "UpdateCustomerProfileActionBuilder",
+      "definitionModule": "src/core/actions/integrate/update-customer-profile.ts",
+      "builderModule": "src/actions/integrate/update-customer-profile.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateCustomerProfileActionBuilder"
+    }
+  },
+  {
+    "awsAction": "EvaluateDataTableValues",
+    "surfaceKind": "flow-language-action",
+    "category": "INTEGRATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Data Table"
+    ],
+    "docs": [
+      {
+        "kind": "admin-guide",
+        "path": "data-table-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/data-table-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "EvaluateDataTableValues",
+      "builderClassName": "EvaluateDataTableValuesActionBuilder",
+      "definitionModule": "src/core/actions/integrate/evaluate-data-table-values.ts",
+      "builderModule": "src/actions/integrate/evaluate-data-table-values.ts",
+      "rootExported": true,
+      "notes": "The package implements the proven evaluate mode with DataTableId and Queries, including QueryName, Attributes, and PrimaryValues.AttributeName/Value entries.",
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "EvaluateDataTableValuesActionBuilder"
+    },
+    "notes": "AWS documents Data Table through the Admin Guide; the underlying EvaluateDataTableValues action name and parameter shape are proven by exported Flow Designer JSON."
+  },
+  {
+    "awsAction": "ListDataTableValues",
+    "surfaceKind": "flow-language-action",
+    "category": "INTEGRATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Data Table"
+    ],
+    "docs": [
+      {
+        "kind": "admin-guide",
+        "path": "data-table-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/data-table-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "ListDataTableValues",
+      "builderClassName": "ListDataTableValuesActionBuilder",
+      "definitionModule": "src/core/actions/integrate/list-data-table-values.ts",
+      "builderModule": "src/actions/integrate/list-data-table-values.ts",
+      "rootExported": true,
+      "notes": "The package implements the proven list mode with DataTableId and PrimaryKeyGroups, including PrimaryKeyGroupName and PrimaryValues.Name/Value entries.",
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "ListDataTableValuesActionBuilder"
+    },
+    "notes": "AWS documents Data Table through the Admin Guide; the underlying ListDataTableValues action name and parameter shape are proven by exported Flow Designer JSON."
+  },
+  {
+    "awsAction": "UpsertDataTableValues",
+    "surfaceKind": "flow-language-action",
+    "category": "INTEGRATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Data Table"
+    ],
+    "docs": [
+      {
+        "kind": "admin-guide",
+        "path": "data-table-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/data-table-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpsertDataTableValues",
+      "builderClassName": "UpsertDataTableValuesActionBuilder",
+      "definitionModule": "src/core/actions/integrate/upsert-data-table-values.ts",
+      "builderModule": "src/actions/integrate/upsert-data-table-values.ts",
+      "rootExported": true,
+      "notes": "The package implements the proven structured-input upsert mode with LockVersion, DataTableId, DataTableUpsertAttributes, PrimaryValues.Name/Value, and Attributes.Name/Value plus optional UseDefaultValue boolean.",
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpsertDataTableValuesActionBuilder"
+    },
+    "notes": "AWS documents Data Table through the Admin Guide; the underlying UpsertDataTableValues action name and structured-input parameter shape are proven by exported Flow Designer JSON. The alternate raw-JSON authoring mode remains intentionally deferred until its export shape is captured."
+  },
+  {
+    "awsAction": "InvokeFlowModule",
+    "surfaceKind": "flow-language-action",
+    "category": "INTEGRATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Invoke module"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-language-actions-invoke-flow-module.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language-actions-invoke-flow-module.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "invoke-module-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/invoke-module-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "InvokeFlowModule",
+      "builderClassName": "InvokeFlowModuleActionBuilder",
+      "definitionModule": "src/core/actions/integrate/invoke-flow-module.ts",
+      "builderModule": "src/actions/integrate/invoke-flow-module.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "InvokeFlowModuleActionBuilder"
+    }
+  },
+  {
+    "awsAction": "ShowView",
+    "surfaceKind": "flow-language-action",
+    "category": "INTEGRATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Show View"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "participant-actions-showview.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/participant-actions-showview.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "show-view-block.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/show-view-block.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "ShowView",
+      "builderClassName": "ShowViewActionBuilder",
+      "definitionModule": "src/core/actions/integrate/show-view.ts",
+      "builderModule": "src/actions/integrate/show-view.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "ShowViewActionBuilder"
+    }
+  },
+  {
+    "awsAction": "DisconnectParticipant",
+    "surfaceKind": "flow-language-action",
+    "category": "TERMINATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Disconnect"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "participant-actions-disconnectparticipant.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/participant-actions-disconnectparticipant.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "disconnect-hang-up.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/disconnect-hang-up.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "DisconnectParticipant",
+      "builderClassName": "DisconnectParticipantActionBuilder",
+      "definitionModule": "src/core/actions/terminate/disconnect.ts",
+      "builderModule": "src/actions/terminate/disconnect.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "DisconnectParticipantActionBuilder"
+    }
+  },
+  {
+    "awsAction": "EndFlowExecution",
+    "surfaceKind": "flow-language-action",
+    "category": "TERMINATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "End flow / Resume"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-endflowexecution.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-endflowexecution.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "end-flow-resume.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/end-flow-resume.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "EndFlowExecution",
+      "builderClassName": "EndFlowExecutionActionBuilder",
+      "definitionModule": "src/core/actions/terminate/end-flow-execution.ts",
+      "builderModule": "src/actions/terminate/end-flow-execution.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "EndFlowExecutionActionBuilder"
+    }
+  },
+  {
+    "awsAction": "EndFlowModuleExecution",
+    "surfaceKind": "flow-language-action",
+    "category": "TERMINATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "End flow / Resume"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "endflowmoduleexecution.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/endflowmoduleexecution.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "end-flow-resume.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/end-flow-resume.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "EndFlowModuleExecution",
+      "builderClassName": "EndFlowModuleExecutionActionBuilder",
+      "definitionModule": "src/core/actions/terminate/end-flow-module-execution.ts",
+      "builderModule": "src/actions/terminate/end-flow-module-execution.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "EndFlowModuleExecutionActionBuilder"
+    }
+  },
+  {
+    "awsAction": "TransferToFlow",
+    "surfaceKind": "flow-language-action",
+    "category": "TERMINATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Transfer to flow"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-transfertoflow.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-transfertoflow.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "transfer-to-flow.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-flow.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "TransferToFlow",
+      "builderClassName": "TransferToFlowActionBuilder",
+      "definitionModule": "src/core/actions/terminate/transfer-to-flow.ts",
+      "builderModule": "src/actions/terminate/transfer-to-flow.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "TransferToFlowActionBuilder"
+    }
+  },
+  {
+    "awsAction": "TransferParticipantToThirdParty",
+    "surfaceKind": "flow-language-action",
+    "category": "TERMINATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Transfer to phone number"
+    ],
+    "docs": [
+      {
+        "kind": "admin-guide",
+        "path": "transfer-to-phone-number.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-phone-number.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "TransferParticipantToThirdParty",
+      "builderClassName": "TransferParticipantToThirdPartyActionBuilder",
+      "definitionModule": "src/core/actions/terminate/transfer-participant-to-third-party.ts",
+      "builderModule": "src/actions/terminate/transfer-participant-to-third-party.ts",
+      "rootExported": true,
+      "notes": "The package implements the proven transfer contract with ThirdPartyPhoneNumber, ThirdPartyConnectionTimeLimitSeconds, ContinueFlowExecution, optional ThirdPartyDTMFDigits, and optional CallerId.Name/Number.",
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "TransferParticipantToThirdPartyActionBuilder"
+    },
+    "notes": "AWS documents this block through the Admin Guide; the underlying TransferParticipantToThirdParty action name and parameter shape are proven by exported Flow Designer JSON."
+  },
+  {
+    "awsAction": "TransferContactToQueue",
+    "surfaceKind": "flow-language-action",
+    "category": "TERMINATE",
+    "categorySource": "ui",
+    "uiEquivalents": [
+      "Transfer to queue"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-transfercontacttoqueue.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-transfercontacttoqueue.html"
+      },
+      {
+        "kind": "admin-guide",
+        "path": "transfer-to-queue.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-queue.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "TransferContactToQueue",
+      "builderClassName": "TransferContactToQueueActionBuilder",
+      "definitionModule": "src/core/actions/terminate/transfer-to-queue.ts",
+      "builderModule": "src/actions/terminate/transfer-to-queue.ts",
+      "rootExported": true,
+      "notes": "This entry covers the not-yet-queued inbound and transfer-flow mode of the Transfer to queue block. Set the working queue first with UpdateContactTargetQueue.",
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "TransferContactToQueueActionBuilder"
+    },
+    "notes": "The Transfer to queue Flow Designer block maps to multiple underlying AWS actions by context. This catalog entry covers the TransferContactToQueue mode documented for contacts not already in a queue."
+  },
+  {
+    "awsAction": "ConnectParticipantWithLexBot",
+    "surfaceKind": "flow-language-action",
+    "category": "Bot and assistant internals",
+    "categorySource": "core",
+    "uiEquivalents": [
+      "Get customer input"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "participant-actions-connectparticipantwithlexbot.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/participant-actions-connectparticipantwithlexbot.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "ConnectParticipantWithLexBot",
+      "builderClassName": "ConnectParticipantWithLexBotActionBuilder",
+      "definitionModule": "src/core/actions/bot-and-assistant-internals/connect-participant-with-lex-bot.ts",
+      "builderModule": "src/actions/bot-and-assistant-internals/connect-participant-with-lex-bot.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "ConnectParticipantWithLexBotActionBuilder"
+    },
+    "notes": "This is the lower-level AWS action behind Lex-backed customer input handling and is cataloged under core function because the Flow Designer exposes it through higher-level input blocks."
+  },
+  {
+    "awsAction": "CreateWisdomSession",
+    "surfaceKind": "flow-language-action",
+    "category": "Bot and assistant internals",
+    "categorySource": "core",
+    "uiEquivalents": [],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "createwisdomsession.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/createwisdomsession.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "CreateWisdomSession",
+      "builderClassName": "CreateWisdomSessionActionBuilder",
+      "definitionModule": "src/core/actions/bot-and-assistant-internals/create-wisdom-session.ts",
+      "builderModule": "src/actions/bot-and-assistant-internals/create-wisdom-session.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "CreateWisdomSessionActionBuilder"
+    }
+  },
+  {
+    "awsAction": "UpdateContactData",
+    "surfaceKind": "flow-language-action",
+    "category": "Contact data and participant state",
+    "categorySource": "core",
+    "uiEquivalents": [
+      "Set contact attributes"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-updatecontactdata.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-updatecontactdata.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateContactData",
+      "builderClassName": "UpdateContactDataActionBuilder",
+      "definitionModule": "src/core/actions/contact-data-and-participant-state/update-contact-data.ts",
+      "builderModule": "src/actions/contact-data-and-participant-state/update-contact-data.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateContactDataActionBuilder"
+    },
+    "notes": "This action addresses Connect-managed contact fields rather than freeform contact attributes, so it remains in the core contact-data category even though operators may encounter it near Set contact attributes patterns."
+  },
+  {
+    "awsAction": "UpdatePreviousContactParticipantState",
+    "surfaceKind": "flow-language-action",
+    "category": "Contact data and participant state",
+    "categorySource": "core",
+    "uiEquivalents": [],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-updatepreviouscontactparticipantstate.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-updatepreviouscontactparticipantstate.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdatePreviousContactParticipantState",
+      "builderClassName": "UpdatePreviousContactParticipantStateActionBuilder",
+      "definitionModule": "src/core/actions/contact-data-and-participant-state/update-previous-contact-participant-state.ts",
+      "builderModule": "src/actions/contact-data-and-participant-state/update-previous-contact-participant-state.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdatePreviousContactParticipantStateActionBuilder"
+    }
+  },
+  {
+    "awsAction": "UpdateFlowAttributes",
+    "surfaceKind": "flow-language-action",
+    "category": "Flow state and execution internals",
+    "categorySource": "core",
+    "uiEquivalents": [
+      "Set contact attributes"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "flow-control-actions-updateflowattributes.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-control-actions-updateflowattributes.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "UpdateFlowAttributes",
+      "builderClassName": "UpdateFlowAttributesActionBuilder",
+      "definitionModule": "src/core/actions/flow-state-and-execution-internals/update-flow-attributes.ts",
+      "builderModule": "src/actions/flow-state-and-execution-internals/update-flow-attributes.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "UpdateFlowAttributesActionBuilder"
+    },
+    "notes": "This action updates flow-scoped state rather than contact attributes, but operators will often encounter it alongside Set contact attributes patterns."
+  },
+  {
+    "awsAction": "CompleteOutboundCall",
+    "surfaceKind": "flow-language-action",
+    "category": "Outbound and callback operations",
+    "categorySource": "core",
+    "uiEquivalents": [],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-completeoutboundcall.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-completeoutboundcall.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "CompleteOutboundCall",
+      "builderClassName": "CompleteOutboundCallActionBuilder",
+      "definitionModule": "src/core/actions/outbound-and-callback-operations/complete-outbound-call.ts",
+      "builderModule": "src/actions/outbound-and-callback-operations/complete-outbound-call.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "CompleteOutboundCallActionBuilder"
+    }
+  },
+  {
+    "awsAction": "CreateCallbackContact",
+    "surfaceKind": "flow-language-action",
+    "category": "Outbound and callback operations",
+    "categorySource": "core",
+    "uiEquivalents": [],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "interactions-createcallbackcontact.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/interactions-createcallbackcontact.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "CreateCallbackContact",
+      "builderClassName": "CreateCallbackContactActionBuilder",
+      "definitionModule": "src/core/actions/outbound-and-callback-operations/create-callback-contact.ts",
+      "builderModule": "src/actions/outbound-and-callback-operations/create-callback-contact.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "CreateCallbackContactActionBuilder"
+    }
+  },
+  {
+    "awsAction": "StartOutboundChatContact",
+    "surfaceKind": "flow-language-action",
+    "category": "Outbound and callback operations",
+    "categorySource": "core",
+    "uiEquivalents": [],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-startoutboundchatcontact.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-startoutboundchatcontact.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "StartOutboundChatContact",
+      "builderClassName": "StartOutboundChatContactActionBuilder",
+      "definitionModule": "src/core/actions/outbound-and-callback-operations/start-outbound-chat-contact.ts",
+      "builderModule": "src/actions/outbound-and-callback-operations/start-outbound-chat-contact.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "StartOutboundChatContactActionBuilder"
+    }
+  },
+  {
+    "awsAction": "MessageParticipantIteratively",
+    "surfaceKind": "flow-language-action",
+    "category": "Queue and hold messaging",
+    "categorySource": "core",
+    "uiEquivalents": [
+      "Play prompt"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "participant-actions-messageparticipantiteratively.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/participant-actions-messageparticipantiteratively.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "MessageParticipantIteratively",
+      "builderClassName": "MessageParticipantIterativelyActionBuilder",
+      "definitionModule": "src/core/actions/queue-and-hold-messaging/message-participant-iteratively.ts",
+      "builderModule": "src/actions/queue-and-hold-messaging/message-participant-iteratively.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "MessageParticipantIterativelyActionBuilder"
+    },
+    "notes": "This looping prompt action is exposed here as a core AWS action because the Flow Designer UI describes the behavior rather than naming the underlying action directly."
+  },
+  {
+    "awsAction": "DequeueContactAndTransferToQueue",
+    "surfaceKind": "flow-language-action",
+    "category": "Routing and transfer internals",
+    "categorySource": "core",
+    "uiEquivalents": [],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-dequeuecontactandtransfertoqueue.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-dequeuecontactandtransfertoqueue.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "DequeueContactAndTransferToQueue",
+      "builderClassName": "DequeueContactAndTransferToQueueActionBuilder",
+      "definitionModule": "src/core/actions/routing-and-transfer-internals/dequeue-contact-and-transfer-to-queue.ts",
+      "builderModule": "src/actions/routing-and-transfer-internals/dequeue-contact-and-transfer-to-queue.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "DequeueContactAndTransferToQueueActionBuilder"
+    }
+  },
+  {
+    "awsAction": "TransferContactToAgent",
+    "surfaceKind": "flow-language-action",
+    "category": "Routing and transfer internals",
+    "categorySource": "core",
+    "uiEquivalents": [
+      "Transfer to queue"
+    ],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "contact-actions-transfercontacttoagent.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/contact-actions-transfercontacttoagent.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "TransferContactToAgent",
+      "builderClassName": "TransferContactToAgentActionBuilder",
+      "definitionModule": "src/core/actions/routing-and-transfer-internals/transfer-contact-to-agent.ts",
+      "builderModule": "src/actions/routing-and-transfer-internals/transfer-contact-to-agent.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "TransferContactToAgentActionBuilder"
+    },
+    "notes": "This agent-targeted transfer is cataloged as a routing internal because the current UI categories surface transfer operations primarily through broader queue- or flow-oriented blocks."
+  },
+  {
+    "awsAction": "AssociateContactToCustomerProfile",
+    "surfaceKind": "flow-language-action",
+    "category": "Routing and transfer internals",
+    "categorySource": "core",
+    "uiEquivalents": [],
+    "docs": [
+      {
+        "kind": "developer-guide",
+        "path": "interactions-associatecontacttocustomerprofile.html",
+        "url": "https://docs.aws.amazon.com/connect/latest/devguide/interactions-associatecontacttocustomerprofile.html"
+      }
+    ],
+    "packageCoverage": {
+      "status": "implemented",
+      "packageActionType": "AssociateContactToCustomerProfile",
+      "builderClassName": "AssociateContactToCustomerProfileActionBuilder",
+      "definitionModule": "src/core/actions/routing-and-transfer-internals/associate-contact-to-customer-profile.ts",
+      "builderModule": "src/actions/routing-and-transfer-internals/associate-contact-to-customer-profile.ts",
+      "rootExported": true,
+      "packageSurfaceKind": "action-builder",
+      "packageExportName": "AssociateContactToCustomerProfileActionBuilder"
+    },
+    "notes": "This remains separate from CreatePersistentContactAssociation, which handles persistent chat rehydration rather than customer-profile association."
+  }
+]

@@ -1,0 +1,10 @@
+import type { CheckVoiceIdOption, CheckMetricDataMetricType, FlowAction, FlowCondition } from "../types.js";
+export declare function validateCompareAction(action: FlowAction): void;
+export declare function validateCheckOutboundCallStatusAction(action: FlowAction): void;
+export declare function validateCheckHoursOfOperationAction(action: FlowAction): void;
+export declare function validateCheckMetricDataAction(action: FlowAction): void;
+export declare function validateStaffingMetricCondition(action: FlowAction, condition: FlowCondition): void;
+export declare function validateGetMetricDataAction(action: FlowAction): void;
+export declare function validateCheckVoiceIdAction(action: FlowAction): void;
+export declare function requireMetricTypeParameter(action: FlowAction): CheckMetricDataMetricType;
+export declare function getAllowedCheckVoiceIdOperands(option: CheckVoiceIdOption): Set<string>;

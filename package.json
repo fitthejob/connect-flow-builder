@@ -1,0 +1,34 @@
+{
+  "name": "connect-flow-builder",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TypeScript Amazon Connect flow-authoring library with typed action builders, validation, and JSON emission.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "node ./scripts/clean-dist.mjs && tsc -p tsconfig.json && node ./scripts/render-action-catalog.mjs",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "generate": "npm run build && node ./dist/generate.js",
+    "test": "npm run build && node --test ./tests/*.test.mjs",
+    "example:branching": "node ./dist/examples/branching-on-input.js",
+    "example:checks": "node ./dist/examples/check-routing.js",
+    "example:analytics": "node ./dist/examples/channel-analytics.js",
+    "example:controls": "node ./dist/examples/operator-controls.js",
+    "example:guided": "node ./dist/examples/guided-wait-transfer.js",
+    "example:outbound": "node ./dist/examples/outbound-call-progress.js",
+    "example:cases": "node ./dist/examples/case-profile-operations.js",
+    "example:tasks": "node ./dist/examples/task-routing-loop.js",
+    "example:staging": "node ./dist/examples/staged-flow-catalog.js"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.8.3"
+  }
+}

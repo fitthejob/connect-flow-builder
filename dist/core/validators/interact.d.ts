@@ -1,0 +1,11 @@
+import type { FlowAction } from "../types.js";
+export declare function validateCreateTaskAction(action: FlowAction): void;
+export declare function validateCreatePersistentContactAssociationAction(action: FlowAction): void;
+export declare function validateLoadContactContentAction(action: FlowAction): void;
+export declare function validateGetParticipantInputAction(action: FlowAction): void;
+export declare function validateLexBackedGetParticipantInputAction(action: FlowAction): void;
+export declare function validateSetTouchtoneBufferBehaviorAction(action: FlowAction): void;
+export declare function validateStoreCustomerInputAction(action: FlowAction): void;
+export declare function validateAuthenticateParticipantAction(action: FlowAction): void;
+export declare function isConnectTrueFalseString(value: string): boolean;
+export declare function normalizeConnectTrueFalseString(value: string): "True" | "False";

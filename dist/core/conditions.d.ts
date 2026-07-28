@@ -1,0 +1,12 @@
+import type { FlowCondition, FlowConditionExpression, FlowConditionOperator } from "./types.js";
+export declare const SUPPORTED_CONDITION_OPERATORS: readonly ["Equals", "TextStartsWith", "TextEndsWith", "TextContains", "NumberGreaterThan", "NumberGreaterOrEqualTo", "NumberLessThan", "NumberLessOrEqualTo"];
+export declare function createCondition(operator: FlowConditionOperator, operand: string): FlowConditionExpression;
+export declare function whenCondition(condition: FlowConditionExpression, nextAction: string): FlowCondition;
+export declare function equalsCondition(operand: string): FlowConditionExpression;
+export declare function textStartsWithCondition(operand: string): FlowConditionExpression;
+export declare function textEndsWithCondition(operand: string): FlowConditionExpression;
+export declare function textContainsCondition(operand: string): FlowConditionExpression;
+export declare function numberGreaterThanCondition(operand: string): FlowConditionExpression;
+export declare function numberGreaterOrEqualToCondition(operand: string): FlowConditionExpression;
+export declare function numberLessThanCondition(operand: string): FlowConditionExpression;
+export declare function numberLessOrEqualToCondition(operand: string): FlowConditionExpression;
