@@ -8,10 +8,10 @@ import type {
   FlowTransitions,
 } from "../core/types.js";
 import { validateSingleAction } from "../index.js";
+import { edgesOf } from "./edges.js";
 import { ParsedFlow } from "./parsed-flow.js";
 import {
   FlowParseError,
-  isPassthroughAction,
   type ParsedAction,
   type ParseDiagnostic,
   type PassthroughAction,
@@ -87,51 +87,6 @@ function buildPassthroughAction(raw: Record<string, unknown>): PassthroughAction
   };
 }
 
-function collectEdges(action: ParsedAction): string[] {
-  if (isPassthroughAction(action)) {
-    const rawTransitions = action.raw["Transitions"] as
-      | {
-          NextAction?: string;
-          Conditions?: Array<{ NextAction: string }>;
-          Errors?: Array<{ NextAction: string }>;
-        }
-      | undefined;
-
-    if (!rawTransitions) {
-      return [];
-    }
-
-    const edges: string[] = [];
-    if (rawTransitions.NextAction !== undefined) {
-      edges.push(rawTransitions.NextAction);
-    }
-    for (const condition of rawTransitions.Conditions ?? []) {
-      edges.push(condition.NextAction);
-    }
-    for (const error of rawTransitions.Errors ?? []) {
-      edges.push(error.NextAction);
-    }
-    return edges;
-  }
-
-  const transitions = action.transitions;
-  if (!transitions) {
-    return [];
-  }
-
-  const edges: string[] = [];
-  if (transitions.nextAction !== undefined) {
-    edges.push(transitions.nextAction);
-  }
-  for (const condition of transitions.conditions ?? []) {
-    edges.push(condition.nextAction);
-  }
-  for (const error of transitions.errors ?? []) {
-    edges.push(error.nextAction);
-  }
-  return edges;
-}
-
 export function parseConnectFlowDefinition(json: string | object): ParsedFlow {
   let rawDocument: Record<string, unknown>;
 
@@ -199,7 +154,7 @@ export function parseConnectFlowDefinition(json: string | object): ParsedFlow {
 
   const actionIds = new Set(actions.map((action) => action.id));
   for (const action of actions) {
-    for (const targetId of collectEdges(action)) {
+    for (const { target: targetId } of edgesOf(action)) {
       if (!actionIds.has(targetId)) {
         diagnostics.push({
           actionId: action.id,

@@ -1,3 +1,4 @@
+import { edgesOf, type IncomingEdge } from "./edges.js";
 import type { ParsedAction, ParseDiagnostic } from "./types.js";
 
 export class ParsedFlow {
@@ -41,5 +42,27 @@ export class ParsedFlow {
 
   getAction(id: string): ParsedAction | undefined {
     return this._actionsById.get(id);
+  }
+
+  findByType(type: string): readonly ParsedAction[] {
+    return this.actions.filter((action) => action.type === type);
+  }
+
+  predecessorsOf(id: string): readonly IncomingEdge[] {
+    const incoming: IncomingEdge[] = [];
+
+    if (this._startActionId === id) {
+      incoming.push({ fromId: null, edge: { kind: "start" } });
+    }
+
+    for (const action of this._actionsById.values()) {
+      for (const { ref, target } of edgesOf(action)) {
+        if (target === id) {
+          incoming.push({ fromId: action.id, edge: ref });
+        }
+      }
+    }
+
+    return incoming;
   }
 }

@@ -114,3 +114,46 @@ test("unknown Version produces a document-level diagnostic", () => {
   assert.ok(flow.diagnostics.some(
     (d) => d.code === "unknown-version" && d.actionId === null));
 });
+
+const BRANCHY_FLOW = {
+  Version: "2019-10-30",
+  StartAction: "input",
+  Actions: [
+    { Identifier: "input", Type: "GetParticipantInput",
+      Parameters: { InputTimeLimitSeconds: "5" },
+      Transitions: {
+        NextAction: "queue",
+        Conditions: [{ NextAction: "queue",
+          Condition: { Operator: "Equals", Operands: ["1"] } }],
+        Errors: [{ NextAction: "end", ErrorType: "NoMatchingCondition" }],
+      } },
+    { Identifier: "mystery", Type: "FutureBlock", Parameters: {},
+      Transitions: { NextAction: "queue" } },
+    { Identifier: "queue", Type: "TransferContactToQueue", Parameters: {},
+      Transitions: { Errors: [
+        { NextAction: "end", ErrorType: "QueueAtCapacity" },
+        { NextAction: "end", ErrorType: "NoMatchingError" } ] } },
+    { Identifier: "end", Type: "DisconnectParticipant", Parameters: {} },
+  ],
+};
+
+test("findByType returns matching actions", () => {
+  const flow = parseConnectFlowDefinition(BRANCHY_FLOW);
+  assert.deepEqual(flow.findByType("TransferContactToQueue").map((a) => a.id), ["queue"]);
+  assert.deepEqual(flow.findByType("FutureBlock").map((a) => a.id), ["mystery"]);
+});
+
+test("predecessorsOf reports every incoming edge including from passthrough", () => {
+  const flow = parseConnectFlowDefinition(BRANCHY_FLOW);
+  const preds = flow.predecessorsOf("queue");
+  assert.deepEqual(
+    preds.map((p) => [p.fromId, p.edge.kind]).sort(),
+    [["input", "condition"], ["input", "next"], ["mystery", "next"]],
+  );
+});
+
+test("predecessorsOf includes the document start pointer", () => {
+  const flow = parseConnectFlowDefinition(BRANCHY_FLOW);
+  assert.deepEqual(flow.predecessorsOf("input"),
+    [{ fromId: null, edge: { kind: "start" } }]);
+});
