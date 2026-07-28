@@ -86,25 +86,6 @@ export function validateLoadContactContentAction(action: FlowAction): void {
   requireErrorTypes(action, ["NoMatchingError"]);
 }
 
-export function validateMessageParticipantAction(action: FlowAction): void {
-  const contentKeys = (["Text", "PromptId", "SSML", "Media"] as const).filter(
-    (key) => action.parameters[key] !== undefined,
-  );
-
-  if (contentKeys.length !== 1) {
-    throw new Error(
-      `Action "${action.id}" of type "MessageParticipant" requires exactly one of Text, PromptId, SSML, or Media.`,
-    );
-  }
-
-  const [contentKey] = contentKeys;
-  if (contentKey === "Media") {
-    return;
-  }
-
-  requireNonEmptyStringParameter(action, contentKey);
-}
-
 export function validateGetParticipantInputAction(action: FlowAction): void {
   const hasTouchtoneBufferMode = "EnableDTMFBuffer" in action.parameters;
   const isStoreInputMode =

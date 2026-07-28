@@ -256,11 +256,20 @@ test("emit throws when a mutation introduced a dangling edge", () => {
 
 test("emit throws when an added action fails strict validation", () => {
   const flow = parseConnectFlowDefinition(structuredClone(BRANCHY_FLOW));
-  flow.addAction({ id: "BadMsg", type: "MessageParticipant", parameters: {} });
-  assert.throws(() => flow.toConnectDefinition(), /Text/);
+  flow.addAction({ id: "BadTransfer", type: "TransferToFlow", parameters: {} });
+  assert.throws(() => flow.toConnectDefinition(), /ContactFlowId/);
 });
 
 test("pre-existing dangling edges still emit (tolerance preserved)", () => {
   const flow = parseConnectFlowDefinition(QUIRKY_FLOW);
   flow.toConnectDefinition(); // must not throw
+});
+
+test("added action gets a synthesized Metadata block when the document has none", () => {
+  const original = structuredClone(BRANCHY_FLOW);
+  delete original.Metadata;
+  const flow = parseConnectFlowDefinition(original);
+  flow.insertBefore("queue", lens());
+  const emitted = flow.toConnectDefinition();
+  assert.deepEqual(emitted.Metadata.ActionMetadata.Injected.position, { x: 0, y: 0 });
 });
