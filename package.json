@@ -22,6 +22,10 @@
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./parse": {
+      "import": "./dist/parse/index.js",
+      "types": "./dist/parse/index.d.ts"
     }
   },
   "scripts": {
