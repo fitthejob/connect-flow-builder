@@ -209,6 +209,21 @@ export function validateVoiceBehavior(action: FlowAction, voiceBehavior: Record<
         }
       }
     }
+
+    if ("ConversationalAnalyticsRedactionConfiguration" in analyticsBehavior) {
+      const redactionConfig = analyticsBehavior.ConversationalAnalyticsRedactionConfiguration;
+      if (!isObject(redactionConfig)) {
+        throw new Error(
+          `Action "${action.id}" of type "UpdateContactRecordingAndAnalyticsBehavior" requires ConversationalAnalyticsRedactionConfiguration to be an object when provided.`,
+        );
+      }
+
+      validateTrueFalseField(
+        action,
+        redactionConfig.Enabled,
+        "VoiceBehavior.VoiceAnalyticsBehavior.ConversationalAnalyticsRedactionConfiguration.Enabled",
+      );
+    }
   }
 }
 

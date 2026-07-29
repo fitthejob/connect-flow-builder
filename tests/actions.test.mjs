@@ -1497,6 +1497,51 @@ test("UpdateContactRecordingAndAnalyticsBehaviorActionBuilder emits voice analyt
   });
 });
 
+// Parameter shape below is transcribed from a Flow Designer export of the
+// "Set recording and analytics behavior" block (post-contact analytics, sentiment
+// on, redaction off). Designer emits ConversationalAnalyticsRedactionConfiguration
+// on every voice analytics block, including when redaction is disabled.
+test("UpdateContactRecordingAndAnalyticsBehaviorActionBuilder emits conversational analytics redaction configuration", () => {
+  const action = new UpdateContactRecordingAndAnalyticsBehaviorActionBuilder("SetAnalytics")
+    .voiceRecording(["Agent", "Customer"], "Disabled")
+    .voiceAnalyticsBehavior({
+      Enabled: "True",
+      AnalyticsLanguage: "en-US",
+      AnalyticsModes: ["PostContact"],
+      ConversationalAnalyticsRedactionConfiguration: {
+        Enabled: "False",
+      },
+      SentimentConfiguration: {
+        Enabled: "True",
+      },
+    })
+    .next("Disconnect")
+    .onError("Disconnect", "NoMatchingError")
+    .onError("Disconnect", "ChannelMismatch")
+    .build();
+
+  assert.equal(action.type, "UpdateContactRecordingAndAnalyticsBehavior");
+  assert.deepEqual(action.parameters, {
+    VoiceBehavior: {
+      VoiceRecordingBehavior: {
+        RecordedParticipants: ["Agent", "Customer"],
+        IVRRecordingBehavior: "Disabled",
+      },
+      VoiceAnalyticsBehavior: {
+        Enabled: "True",
+        AnalyticsLanguage: "en-US",
+        AnalyticsModes: ["PostContact"],
+        ConversationalAnalyticsRedactionConfiguration: {
+          Enabled: "False",
+        },
+        SentimentConfiguration: {
+          Enabled: "True",
+        },
+      },
+    },
+  });
+});
+
 test("UpdateContactMediaProcessingActionBuilder emits chat processor configuration", () => {
   const action = new UpdateContactMediaProcessingActionBuilder("SetMediaProcessing")
     .lambdaChatProcessor("arn:aws:lambda:us-east-1:123456789012:function:chat-processor")

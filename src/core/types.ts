@@ -164,6 +164,9 @@ export interface VoiceAnalyticsBehaviorConfig {
   Enabled?: "True" | "False";
   AnalyticsLanguage?: string;
   AnalyticsModes?: Array<"RealTime" | "PostContact" | "AutomatedInteraction">;
+  ConversationalAnalyticsRedactionConfiguration?: {
+    Enabled: "True" | "False";
+  };
   SentimentConfiguration?: {
     Enabled: "True" | "False";
   };
