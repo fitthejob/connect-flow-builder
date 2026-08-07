@@ -126,7 +126,10 @@ const BRANCHY_FLOW = {
         NextAction: "queue",
         Conditions: [{ NextAction: "queue",
           Condition: { Operator: "Equals", Operands: ["1"] } }],
-        Errors: [{ NextAction: "end", ErrorType: "NoMatchingCondition" }],
+        Errors: [
+          { NextAction: "end", ErrorType: "NoMatchingCondition" },
+          { NextAction: "end", ErrorType: "InputTimeLimitExceeded" },
+        ],
       } },
     { Identifier: "mystery", Type: "FutureBlock", Parameters: {},
       Transitions: { NextAction: "queue" } },
