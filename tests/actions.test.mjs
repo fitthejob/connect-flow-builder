@@ -227,7 +227,6 @@ test("ConnectParticipantWithLexBotActionBuilder emits the expected Lex handoff b
     .lexV2BotAliasArn("arn:aws:lex:us-east-1:123456789012:bot-alias/example")
     .sessionAttribute("channel", "voice")
     .initialMessage("welcome")
-    .lexTimeoutTextSeconds(15)
     .whenIntentEquals("OrderStatus", "RouteOrders")
     .onInputTimeLimitExceeded("Retry")
     .onNoMatchingCondition("Fallback")
@@ -245,9 +244,6 @@ test("ConnectParticipantWithLexBotActionBuilder emits the expected Lex handoff b
     },
     LexInitializationData: {
       InitialMessage: "welcome",
-    },
-    LexTimeoutSeconds: {
-      Text: 15,
     },
   });
   assert.deepEqual(action.transitions, {
