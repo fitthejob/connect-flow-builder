@@ -1263,6 +1263,25 @@ test("InvokeLambdaFunctionActionBuilder emits the expected Lambda parameter", ()
   });
 });
 
+test("InvokeLambdaFunctionActionBuilder.invocationAttribute nests custom parameters under LambdaInvocationAttributes", () => {
+  const action = new InvokeLambdaFunctionActionBuilder("InvokeVerify")
+    .lambdaArn("arn:aws:lambda:example")
+    .invocationAttribute("Action", "verify")
+    .invocationAttribute("Code", "$.Lex.Slots.VerificationCode")
+    .next("Transfer")
+    .onError("Disconnect")
+    .build();
+
+  assert.deepEqual(action.parameters, {
+    InvocationTimeLimitSeconds: "8",
+    LambdaFunctionARN: "arn:aws:lambda:example",
+    LambdaInvocationAttributes: {
+      Action: "verify",
+      Code: "$.Lex.Slots.VerificationCode",
+    },
+  });
+});
+
 test("InvokeFlowModuleActionBuilder emits the expected module invocation block", () => {
   const action = new InvokeFlowModuleActionBuilder("InvokeModule")
     .flowModuleId("arn:aws:connect:flow-module/example")
