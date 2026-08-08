@@ -40,27 +40,6 @@ export function validateConnectParticipantWithLexBotAction(action: FlowAction): 
     }
   }
 
-  const timeout = action.parameters.LexTimeoutSeconds;
-  if (timeout !== undefined) {
-    if (!isObject(timeout) || !("Text" in timeout)) {
-      throw new Error(
-        `Action "${action.id}" of type "ConnectParticipantWithLexBot" requires LexTimeoutSeconds to be an object with Text.`,
-      );
-    }
-
-    const textValue = timeout.Text;
-    if (
-      !(
-        (typeof textValue === "number" && Number.isInteger(textValue) && textValue > 0)
-        || (typeof textValue === "string" && textValue.trim().length > 0)
-      )
-    ) {
-      throw new Error(
-        `Action "${action.id}" of type "ConnectParticipantWithLexBot" requires LexTimeoutSeconds.Text to be a positive integer or a non-empty JSONPath string.`,
-      );
-    }
-  }
-
   for (const condition of action.transitions?.conditions ?? []) {
     if (condition.condition.operator !== "Equals") {
       throw new Error(

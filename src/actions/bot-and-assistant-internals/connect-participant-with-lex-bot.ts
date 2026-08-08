@@ -50,12 +50,6 @@ export class ConnectParticipantWithLexBotActionBuilder extends BaseActionBuilder
     });
   }
 
-  lexTimeoutTextSeconds(value: number | string): this {
-    return this.setParameter("LexTimeoutSeconds", {
-      Text: value,
-    });
-  }
-
   whenIntentEquals(intent: string, nextAction: string): this {
     this.when(equalsCondition(intent), nextAction);
     return this;
