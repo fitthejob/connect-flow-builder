@@ -189,6 +189,7 @@ export { ResumeContactActionBuilder } from "./actions/set/resume-contact.js";
 export { SetCustomerQueueFlowActionBuilder } from "./actions/set/set-customer-queue-flow.js";
 export { SetDisconnectFlowActionBuilder } from "./actions/set/set-disconnect-flow.js";
 export { SetWhisperFlowActionBuilder } from "./actions/set/set-whisper-flow.js";
+export { SetAgentWhisperFlowActionBuilder } from "./actions/set/set-agent-whisper-flow.js";
 export { TagContactActionBuilder } from "./actions/set/tag-contact.js";
 export { UnTagContactActionBuilder } from "./actions/set/untag-contact.js";
 export { UpdateContactCallbackNumberActionBuilder } from "./actions/set/update-contact-callback-number.js";

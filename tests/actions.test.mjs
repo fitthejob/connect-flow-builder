@@ -51,6 +51,7 @@ import {
   SetTouchtoneBufferBehaviorActionBuilder,
   StoreCustomerInputActionBuilder,
   SetWhisperFlowActionBuilder,
+  SetAgentWhisperFlowActionBuilder,
   ShowViewActionBuilder,
   StartOutboundChatContactActionBuilder,
   StartVoiceIdStreamActionBuilder,
@@ -398,6 +399,31 @@ test("SetWhisperFlowActionBuilder emits the expected customer-whisper hook block
     EventHooks: {
       CustomerWhisper:
         "arn:aws:connect:us-east-1:123456789012:contact-flow/customer-whisper",
+    },
+  });
+  assert.deepEqual(action.transitions, {
+    nextAction: "Continue",
+    errors: [
+      {
+        nextAction: "Fallback",
+        errorType: "NoMatchingError",
+      },
+    ],
+  });
+});
+
+test("SetAgentWhisperFlowActionBuilder emits the expected agent-whisper hook block", () => {
+  const action = new SetAgentWhisperFlowActionBuilder("SetAgentWhisperFlow")
+    .whisperFlowId("arn:aws:connect:us-east-1:123456789012:contact-flow/agent-whisper")
+    .next("Continue")
+    .onError("Fallback")
+    .build();
+
+  assert.equal(action.type, "UpdateContactEventHooks");
+  assert.deepEqual(action.parameters, {
+    EventHooks: {
+      AgentWhisper:
+        "arn:aws:connect:us-east-1:123456789012:contact-flow/agent-whisper",
     },
   });
   assert.deepEqual(action.transitions, {
