@@ -20,7 +20,11 @@ export class EndTestActionBuilder {
         ActionType: "TestControl",
         Command: { Type: "EndTest" },
       },
-      Transitions: { NextAction: "" },
+      // No Transitions key -- EndTest is terminal by definition, and
+      // CreateTestCase (Status: PUBLISHED) rejects an explicit
+      // `{ NextAction: "" }` with InvalidActionProblem("Invalid next
+      // action identifier: "), confirmed live 2026-08-17. Omitting the
+      // key entirely is what the real API accepts.
     };
   }
 }

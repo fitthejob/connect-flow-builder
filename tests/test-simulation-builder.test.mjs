@@ -27,7 +27,13 @@ test("MessageReceivedEventBuilder builds a MessageReceived event with the given 
   });
 });
 
-test("EndTestActionBuilder builds a TestControl EndTest action", () => {
+test("EndTestActionBuilder builds a TestControl EndTest action with no Transitions key", () => {
+  // No Transitions key -- confirmed live against the real CreateTestCase
+  // API (Status: PUBLISHED) 2026-08-17: an explicit
+  // `Transitions: { NextAction: "" }` is rejected with
+  // InvalidActionProblem("Invalid next action identifier: "), even though
+  // AWS's own devguide example shows that exact shape. Omitting the key
+  // is what the live API actually accepts for a terminal action.
   const action = new EndTestActionBuilder("EndTest").build();
   assert.deepEqual(action, {
     Identifier: "EndTest",
@@ -36,8 +42,8 @@ test("EndTestActionBuilder builds a TestControl EndTest action", () => {
       ActionType: "TestControl",
       Command: { Type: "EndTest" },
     },
-    Transitions: { NextAction: "" },
   });
+  assert.equal("Transitions" in action, false);
 });
 
 test("TestCaseBuilder assembles Observations in insertion order and serializes correctly", () => {
@@ -48,9 +54,14 @@ test("TestCaseBuilder assembles Observations in insertion order and serializes c
 
   const builtTestCase = new TestCaseBuilder()
     .add({
+      // No Usage key -- confirmed live 2026-08-17 that CreateTestCase
+      // (Status: PUBLISHED) rejects Usage being present at all on a
+      // TestInitiated-driven observation (InvalidObservationProblem,
+      // "Invalid usage type" -- tried both "EXACTLY" and "ANY", both
+      // rejected). MessageReceived observations were not live-tested
+      // either way, so WelcomeMessage below keeps Usage unchanged.
       Identifier: "TriggerHoursCheck",
       Event: new TestInitiatedEventBuilder().build(),
-      Usage: { Type: "EXACTLY" },
       Actions: [],
       Transitions: { NextObservations: ["WelcomeMessage"] },
     })
@@ -70,7 +81,6 @@ test("TestCaseBuilder assembles Observations in insertion order and serializes c
       {
         Identifier: "TriggerHoursCheck",
         Event: { Type: "TestInitiated", Actor: "System", Properties: {} },
-        Usage: { Type: "EXACTLY" },
         Actions: [],
         Transitions: { NextObservations: ["WelcomeMessage"] },
       },
@@ -91,7 +101,6 @@ test("TestCaseBuilder assembles Observations in insertion order and serializes c
               ActionType: "TestControl",
               Command: { Type: "EndTest" },
             },
-            Transitions: { NextAction: "" },
           },
         ],
         Transitions: { NextObservations: [] },
@@ -106,9 +115,9 @@ test("TestCaseBuilder assembles Observations in insertion order and serializes c
 test("BuiltTestCase.toJsonString(false) produces compact JSON with no added whitespace", () => {
   const builtTestCase = new TestCaseBuilder()
     .add({
+      // No Usage key -- see the TestInitiated rationale above.
       Identifier: "Only",
       Event: new TestInitiatedEventBuilder().build(),
-      Usage: { Type: "EXACTLY" },
       Actions: [],
       Transitions: { NextObservations: [] },
     })
@@ -119,12 +128,18 @@ test("BuiltTestCase.toJsonString(false) produces compact JSON with no added whit
   assert.deepEqual(JSON.parse(compact), builtTestCase.definition);
 });
 
-test("builder output structurally matches the AWS docs Observations schema shape", () => {
+test("builder output structurally matches the live-verified CreateTestCase schema shape", () => {
+  // Asserts against real API behavior confirmed live 2026-08-17
+  // (CreateTestCase, Status: PUBLISHED against a real Amazon Connect
+  // instance), not AWS's devguide example -- that example's own JSON
+  // (testing-language-example.html) does not pass live validation as
+  // written (Usage present on a TestInitiated observation, and
+  // Transitions: { NextAction: "" } on a terminal action, are both
+  // rejected by the real service).
   const builtTestCase = new TestCaseBuilder()
     .add({
       Identifier: "TestStart",
       Event: new TestInitiatedEventBuilder().build(),
-      Usage: { Type: "EXACTLY" },
       Actions: [],
       Transitions: { NextObservations: ["WelcomeMessage"] },
     })
@@ -141,29 +156,27 @@ test("builder output structurally matches the AWS docs Observations schema shape
 
   const parsed = JSON.parse(builtTestCase.toJsonString());
 
-  // Top-level shape matches the AWS docs example's envelope exactly.
   assert.equal(parsed.Version, "2019-10-30");
   assert.deepEqual(parsed.Metadata, {});
   assert.equal(Array.isArray(parsed.Observations), true);
   assert.equal(parsed.Observations.length, 2);
 
-  // Each observation has exactly the five top-level keys the AWS example's
-  // observations have: Identifier, Event, Usage, Actions, Transitions.
-  for (const observation of parsed.Observations) {
-    assert.deepEqual(
-      Object.keys(observation).sort(),
-      ["Actions", "Event", "Identifier", "Transitions", "Usage"],
-    );
-  }
-
-  // First observation's Event shape matches the AWS example's
-  // TriggerHoursCheck.Event shape (Type/Actor/Properties, no MatchingCriteria).
   const [first, second] = parsed.Observations;
+
+  // TestInitiated-driven observation: no Usage key.
+  assert.deepEqual(
+    Object.keys(first).sort(),
+    ["Actions", "Event", "Identifier", "Transitions"],
+  );
   assert.deepEqual(Object.keys(first.Event).sort(), ["Actor", "Properties", "Type"]);
   assert.equal(first.Event.Type, "TestInitiated");
 
-  // Second observation's Event shape matches the AWS example's
-  // WelcomeMessage.Event shape (adds MatchingCriteria).
+  // MessageReceived-driven observation: Usage present (unverified either
+  // way against the live API, kept as this package's existing default).
+  assert.deepEqual(
+    Object.keys(second).sort(),
+    ["Actions", "Event", "Identifier", "Transitions", "Usage"],
+  );
   assert.deepEqual(
     Object.keys(second.Event).sort(),
     ["Actor", "MatchingCriteria", "Properties", "Type"],
@@ -171,10 +184,12 @@ test("builder output structurally matches the AWS docs Observations schema shape
   assert.equal(second.Event.Type, "MessageReceived");
   assert.equal(second.Event.MatchingCriteria, "Similarity");
 
-  // Terminal action shape matches the AWS example's EndTest action shape.
+  // Terminal EndTest action: Parameters shape unchanged, but no
+  // Transitions key (confirmed live -- see EndTestActionBuilder test above).
   const endTestAction = second.Actions[0];
   assert.deepEqual(endTestAction.Parameters, {
     ActionType: "TestControl",
     Command: { Type: "EndTest" },
   });
+  assert.equal("Transitions" in endTestAction, false);
 });
