@@ -118,3 +118,63 @@ test("BuiltTestCase.toJsonString(false) produces compact JSON with no added whit
   assert.equal(compact.includes("\n"), false);
   assert.deepEqual(JSON.parse(compact), builtTestCase.definition);
 });
+
+test("builder output structurally matches the AWS docs Observations schema shape", () => {
+  const builtTestCase = new TestCaseBuilder()
+    .add({
+      Identifier: "TestStart",
+      Event: new TestInitiatedEventBuilder().build(),
+      Usage: { Type: "EXACTLY" },
+      Actions: [],
+      Transitions: { NextObservations: ["WelcomeMessage"] },
+    })
+    .add({
+      Identifier: "WelcomeMessage",
+      Event: new MessageReceivedEventBuilder(
+        "Press 1 to be connected to an agent",
+      ).build(),
+      Usage: { Type: "EXACTLY" },
+      Actions: [new EndTestActionBuilder("EndTest").build()],
+      Transitions: { NextObservations: [] },
+    })
+    .build();
+
+  const parsed = JSON.parse(builtTestCase.toJsonString());
+
+  // Top-level shape matches the AWS docs example's envelope exactly.
+  assert.equal(parsed.Version, "2019-10-30");
+  assert.deepEqual(parsed.Metadata, {});
+  assert.equal(Array.isArray(parsed.Observations), true);
+  assert.equal(parsed.Observations.length, 2);
+
+  // Each observation has exactly the five top-level keys the AWS example's
+  // observations have: Identifier, Event, Usage, Actions, Transitions.
+  for (const observation of parsed.Observations) {
+    assert.deepEqual(
+      Object.keys(observation).sort(),
+      ["Actions", "Event", "Identifier", "Transitions", "Usage"],
+    );
+  }
+
+  // First observation's Event shape matches the AWS example's
+  // TriggerHoursCheck.Event shape (Type/Actor/Properties, no MatchingCriteria).
+  const [first, second] = parsed.Observations;
+  assert.deepEqual(Object.keys(first.Event).sort(), ["Actor", "Properties", "Type"]);
+  assert.equal(first.Event.Type, "TestInitiated");
+
+  // Second observation's Event shape matches the AWS example's
+  // WelcomeMessage.Event shape (adds MatchingCriteria).
+  assert.deepEqual(
+    Object.keys(second.Event).sort(),
+    ["Actor", "MatchingCriteria", "Properties", "Type"],
+  );
+  assert.equal(second.Event.Type, "MessageReceived");
+  assert.equal(second.Event.MatchingCriteria, "Similarity");
+
+  // Terminal action shape matches the AWS example's EndTest action shape.
+  const endTestAction = second.Actions[0];
+  assert.deepEqual(endTestAction.Parameters, {
+    ActionType: "TestControl",
+    Command: { Type: "EndTest" },
+  });
+});
