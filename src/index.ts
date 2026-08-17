@@ -248,3 +248,33 @@ export {
   buildStandardLexEntry,
   type StandardLexEntryProps,
 } from "./composites/standard-lex-entry.js";
+
+export {
+  TestCaseBuilder,
+  BuiltTestCase,
+} from "./test-simulation/test-case-builder.js";
+export {
+  testActionDefinitions,
+  testActionRegistry,
+  getTestActionDefinition,
+} from "./test-simulation/registry.js";
+export {
+  defineTestActionDefinition,
+  type TestActionDefinition,
+} from "./test-simulation/action-definition.js";
+export type {
+  TestCaseDefinition,
+  Observation,
+  TestEvent,
+  TestEventType,
+  TestAction,
+  TestActionType,
+  TestTransitions,
+  TestUsage,
+  TestInitiatedEventProperties,
+  MessageReceivedEventProperties,
+  TestControlCommand,
+} from "./test-simulation/types.js";
+export { TestInitiatedEventBuilder } from "./actions-test-sim/events/test-initiated.js";
+export { MessageReceivedEventBuilder } from "./actions-test-sim/events/message-received.js";
+export { EndTestActionBuilder } from "./actions-test-sim/actions/test-control.js";
