@@ -32,7 +32,16 @@ export interface TestAction {
     ActionType: "TestControl";
     Command: TestControlCommand;
   };
-  Transitions: {
+  // Optional, not `{ NextAction: "" }` -- confirmed live against the real
+  // CreateTestCase API (Status: PUBLISHED, which triggers content
+  // validation): a terminal action's Transitions key must be entirely
+  // absent. `{ NextAction: "" }` is rejected with
+  // InvalidTestCaseException / InvalidActionProblem("Invalid next action
+  // identifier: "), even though AWS's own devguide example
+  // (testing-language-example.html) shows `"NextAction": ""` for the same
+  // case -- that doc example does not match runtime validation as of
+  // 2026-08-17.
+  Transitions?: {
     NextAction: string;
   };
 }
@@ -48,7 +57,17 @@ export interface TestUsage {
 export interface Observation {
   Identifier: string;
   Event: TestEvent;
-  Usage: TestUsage;
+  // Optional -- confirmed live against the real CreateTestCase API
+  // (Status: PUBLISHED): supplying Usage at all on a TestInitiated-driven
+  // observation is rejected with InvalidTestCaseException /
+  // InvalidObservationProblem("Invalid usage type"), regardless of its
+  // Type value ("EXACTLY" and "ANY" both tested, both rejected). AWS's own
+  // devguide pages disagree with each other on this field's example value
+  // (testing-language-example.html shows "EXACTLY",
+  // testing-language-observations.html shows "ANY" in its own code
+  // sample) -- neither is accepted when present; omitting the key
+  // entirely is what the live API actually requires.
+  Usage?: TestUsage;
   Actions: TestAction[];
   Transitions: TestTransitions;
 }
