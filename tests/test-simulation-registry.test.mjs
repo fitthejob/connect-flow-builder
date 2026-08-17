@@ -5,7 +5,7 @@ import {
   testActionDefinitions,
   testActionRegistry,
   getTestActionDefinition,
-} from "../dist/test-simulation/registry.js";
+} from "../dist/index.js";
 
 test("test-simulation registry has exactly one action type: TestControl", () => {
   assert.deepEqual(

@@ -1,10 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { TestInitiatedEventBuilder } from "../dist/actions-test-sim/events/test-initiated.js";
-import { MessageReceivedEventBuilder } from "../dist/actions-test-sim/events/message-received.js";
-import { EndTestActionBuilder } from "../dist/actions-test-sim/actions/test-control.js";
-import { TestCaseBuilder } from "../dist/test-simulation/test-case-builder.js";
+import {
+  TestInitiatedEventBuilder,
+  MessageReceivedEventBuilder,
+  EndTestActionBuilder,
+  TestCaseBuilder,
+} from "../dist/index.js";
 
 test("TestInitiatedEventBuilder builds a TestInitiated event with empty properties", () => {
   const event = new TestInitiatedEventBuilder().build();

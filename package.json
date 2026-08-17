@@ -1,6 +1,6 @@
 {
   "name": "@fitthejob/connect-flow-builder",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "TypeScript Amazon Connect flow-authoring library with typed action builders, validation, and JSON emission.",
   "license": "UNLICENSED",
   "repository": {
